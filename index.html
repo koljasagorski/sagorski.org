@@ -122,18 +122,21 @@ XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
         color: #B2AAFF;
     }
 
-    h1, h2 {
-        color: #FF5053;
-        font-family: 'SpaceGrotesk-Regular', sans-serif !important;
-    }/* Style for numbers */
+   
+        /* Style for numbers */
 
     body :where(p, header, h1, h2) {
         font-variant-numeric: tabular-nums;
-        font-family: 'SpaceMono', sans-serif;
-    }/* Apply UncutSans for non-numeric text by default */
+        font-family: 'UncutSans', sans-serif;
+    }
+        /* Apply UncutSans for non-numeric text by default */
 
     body * :not(:is(code, pre)) {
         font-family: 'UncutSans', sans-serif;
+    }
+         h1, h2 {
+        color: #FF5053;
+        font-family: 'SpaceGrotesk-Regular', sans-serif !important;
     }
     </style>
 </head>
