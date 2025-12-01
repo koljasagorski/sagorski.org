@@ -1,8 +1,8 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html lang="de">
-   <head>
-      <title>Kolja Sagorski</title>
+<head>
       <meta charset="utf-8" />
+      <title>Kolja Sagorski – Head of IT & CISA</title>
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <meta name="color-scheme" content="light only" />
       <meta name="description" content="Welcome to my private Website." />
@@ -11,48 +11,112 @@
       <meta property="og:type" content="website" />
       <meta property="og:description" content="Welcome to my private Website." />
       <link rel="canonical" href="index.html" />
-      <link rel="icon" type="image/png" href="favicon-96x96.png" />
-      <meta property="og:video" content="https://sagorski.org/mrrobot.mp4" />
-      <meta property="og:video:type" content="video/mp4" />
-      <meta property="og:video:secure_url" content="https://sagorski.org/mrrobot.mp4" />
-      <meta property="og:video:width" content="1920" />
-      <meta property="og:video:height" content="1080" />
-      <meta property="og:image" content="https://sagorski.org/mrrobot.png" />
+      <link rel="icon" type="image/png" href="ich.ong" />
+      <meta property="og:image" content="https://sagorski.org/ogimage.png" />
       <meta property="og:image:type" content="image/jpeg" />
-      <style>
-         body {
-            margin: 0;
-            padding: 0;
-            background: url('https://sagorski.org/mrrobot.webp') no-repeat center center fixed;
-            background-size: cover;
-         }
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
-         .centered {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            height: 100vh;
-            text-align: center;
-            color: white;
-            font-size: 1.5rem;
-            text-shadow: 1px 1px 4px black;
-         }
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #EDE7DD;
+      font-family: "Source Sans 3", system-ui, sans-serif;
+      color: #474542;
+      padding: 1.5rem;
+    }
 
-         a {
-            color: #ffcc00;
-            text-decoration: none;
-         }
+    .card {
+      background: rgba(255, 255, 255, 0.8);
+      padding: 2rem;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      max-width: 700px;
+      width: 100%;
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.06);
+    }
 
-         a:hover {
-            text-decoration: underline;
-         }
-      </style>
-   </head>
-   <body>
-      <div class="centered">
-         Kolja Sagorski<br>
-         <a href="https://linkedin.com/in/koljasagorski">Find me on Linkedin</a>
-      </div>
-   </body>
+    /* Linker Textbereich soll frei wachsen */
+    .text-area {
+      flex: 1;
+      min-width: 0; /* important to prevent overflow */
+    }
+
+    .headline {
+      font-size: 2.2rem;
+      letter-spacing: -0.05rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .subtitle {
+      font-size: 1rem;
+      font-weight: 300;
+      color: #8C857A;
+      margin-bottom: 1.5rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.55rem 1.2rem;
+      border-radius: 0.375rem;
+      font-size: 0.875rem;
+      border: 1px solid #BAB3A8;
+      text-decoration: none;
+      color: inherit;
+      transition: transform 0.2s ease, background-color 0.2s ease;
+    }
+
+    .btn:hover {
+      transform: scale(1.03);
+      background-color: #E6DFD3;
+    }
+
+    /* Rechter Bereich bekommt feste Breite → drückt links nichts mehr zusammen */
+    .image-container {
+      width: 120px; /* genug Platz für 100px Bild + etwas Luft */
+      display: flex;
+      justify-content: center;
+    }
+
+    .profile-image {
+      width: 100px;
+      border-radius: 6px;
+      display: block;
+    }
+
+    @media (max-width: 650px) {
+      .card {
+        flex-direction: column-reverse;
+        text-align: center;
+      }
+      .image-container {
+        width: 100%; 
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="card">
+    <section class="text-area">
+      <h1 class="headline">Kolja Sagorski</h1>
+      <p class="subtitle">Head of IT · CISA · Security Analyst</p>
+
+      <a class="btn" href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer">
+        LinkedIn Profil
+      </a>
+    </section>
+
+    <aside class="image-container">
+      <img src="https://sagorski.org/ich.png" alt="Kolja Sagorski" class="profile-image" />
+    </aside>
+  </main>
+</body>
 </html>
