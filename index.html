@@ -1,19 +1,56 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
-      <meta charset="utf-8" />
-      <title>Kolja Sagorski – Head of IT, CISA & Security Analyst</title>
-      <meta name="viewport" content="width=device-width, initial-scale=1" />
-      <meta name="color-scheme" content="light only" />
-      <meta name="description" content="Welcome to my private Website." />
-      <meta property="og:site_name" content="Kolja Sagorski" />
-      <meta property="og:title" content="Kolja Sagorski" />
-      <meta property="og:type" content="website" />
-      <meta property="og:description" content="Welcome to my private Website." />
-      <link rel="canonical" href="index.html" />
-      <link rel="icon" type="image/png" href="https://sagorski.org/ich.ong" />
-      <meta property="og:image" content="https://sagorski.org/ogimage.png" />
-      <meta property="og:image:type" content="image/jpeg" />
+  <meta charset="utf-8" />
+  <title>Kolja Sagorski – Head of IT, CISA & Security Analyst</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="light only" />
+  <meta name="description" content="Kolja Sagorski is a Head of IT, CISA, and Security Analyst specializing in cybersecurity, IT strategy, cloud solutions, and enterprise infrastructure." />
+  <meta name="author" content="Kolja Sagorski" />
+  <meta name="robots" content="index,follow" />
+
+  <link rel="canonical" href="https://sagorski.org/" />
+  <link rel="alternate" href="https://sagorski.org/" hreflang="en" />
+
+  <link rel="icon" type="image/png" href="https://sagorski.org/ich.png" />
+
+  <!-- Open Graph -->
+  <meta property="og:site_name" content="Kolja Sagorski" />
+  <meta property="og:title" content="Kolja Sagorski – Head of IT, CISA & Security Analyst" />
+  <meta property="og:type" content="website" />
+  <meta property="og:description" content="Head of IT, CISA, and Security Analyst focused on cybersecurity, IT strategy, cloud solutions, and secure enterprise infrastructure." />
+  <meta property="og:image" content="https://sagorski.org/ogimage.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:url" content="https://sagorski.org/" />
+  <meta property="og:locale" content="en_US" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Kolja Sagorski – Head of IT, CISA & Security Analyst" />
+  <meta name="twitter:description" content="Cybersecurity-focused Head of IT and CISA-certified Security Analyst with expertise in cloud infrastructure and IT strategy." />
+  <meta name="twitter:image" content="https://sagorski.org/ogimage.png" />
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Kolja Sagorski",
+    "jobTitle": "Head of IT, CISA & Security Analyst",
+    "image": "https://sagorski.org/ich.png",
+    "url": "https://sagorski.org/",
+    "sameAs": [
+      "https://www.linkedin.com/in/koljasagorski"
+    ],
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Gelsenkirchen",
+      "addressRegion": "North Rhine-Westphalia",
+      "addressCountry": "DE"
+    }
+  }
+  </script>
+
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -40,10 +77,9 @@
       box-shadow: 0 18px 40px rgba(0, 0, 0, 0.06);
     }
 
-    /* Linker Textbereich soll frei wachsen */
     .text-area {
       flex: 1;
-      min-width: 0; /* important to prevent overflow */
+      min-width: 0;
     }
 
     .headline {
@@ -56,7 +92,12 @@
       font-size: 1rem;
       font-weight: 300;
       color: #8C857A;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .text-area p {
+      margin-bottom: 0.75rem;
+      line-height: 1.5;
     }
 
     .btn {
@@ -70,6 +111,7 @@
       text-decoration: none;
       color: inherit;
       transition: transform 0.2s ease, background-color 0.2s ease;
+      margin-top: 0.5rem;
     }
 
     .btn:hover {
@@ -77,9 +119,8 @@
       background-color: #E6DFD3;
     }
 
-    /* Rechter Bereich bekommt feste Breite → drückt links nichts mehr zusammen */
     .image-container {
-      width: 120px; /* genug Platz für 100px Bild + etwas Luft */
+      width: 120px;
       display: flex;
       justify-content: center;
     }
@@ -96,7 +137,7 @@
         text-align: center;
       }
       .image-container {
-        width: 100%; 
+        width: 100%;
         justify-content: center;
       }
     }
@@ -104,21 +145,31 @@
 </head>
 
 <body>
-      <script data-goatcounter="https://sagorskiorg.goatcounter.com/count"
-        async src="//gc.zgo.at/count.js"></script>
-      
   <main class="card">
     <section class="text-area">
-      <h1 class="headline">Kolja Sagorski</h1>
-      <p class="subtitle">Head of IT · CISA · Security Analyst</p>
+      <header>
+        <h1 class="headline">Kolja Sagorski</h1>
+        <h2 class="subtitle">Head of IT · CISA · Security Analyst</h2>
+      </header>
 
-      <a class="btn" href="https://www.linkedin.com/in/koljasagorski" target="_blank">
+      <p>
+        I design, operate, and secure IT infrastructures for law firms and mid-sized enterprises, 
+        with a strong focus on cybersecurity, Microsoft 365, network architecture, and secure cloud environments.
+      </p>
+      <p>
+        As Head of IT, I am responsible for the strategic development of the IT landscape, 
+        information security, and business continuity — ensuring scalable, stable, and secure systems.
+      </p>
+
+      <a class="btn" href="https://www.linkedin.com/in/koljasagorski" target="_blank" rel="noopener noreferrer">
         LinkedIn
       </a>
     </section>
 
     <aside class="image-container">
-      <img src="https://sagorski.org/ich.png" alt="Kolja Sagorski" class="profile-image" />
+      <img src="https://sagorski.org/ich.png" 
+           alt="Portrait of Kolja Sagorski, Head of IT and Security Analyst" 
+           class="profile-image" />
     </aside>
   </main>
 </body>
