@@ -72,6 +72,7 @@
       font-family: "Source Sans 3", system-ui, sans-serif;
       color: #474542;
       padding: 1.5rem;
+      transition: background 0.4s ease, color 0.4s ease;
     }
 
     .card {
@@ -84,6 +85,7 @@
       max-width: 700px;
       width: 100%;
       box-shadow: 0 18px 40px rgba(0, 0, 0, 0.06);
+      transition: background 0.4s ease, box-shadow 0.4s ease;
     }
 
     .text-area { flex: 1; }
@@ -122,16 +124,16 @@
       font-family: "Courier New", monospace;
       font-size: 0.85rem;
       color: #000;
-      white-space: pre; /* \n unterstützen */
+      white-space: pre;
       opacity: 0;
       pointer-events: none;
+      transition: color 0.4s ease;
     }
 
     .headline-email:hover .terminal-box {
       opacity: 1;
     }
 
-    /* Blinkender Cursor während des Tippens */
     .terminal-box.is-typing::after {
       content: "";
       display: inline-block;
@@ -157,6 +159,7 @@
       opacity: 0.85;
       margin: 0 0.15rem;
       color: #8C857A;
+      transition: color 0.4s ease;
     }
 
     .subtitle {
@@ -164,6 +167,7 @@
       font-weight: 300;
       margin-bottom: 1rem;
       color: #8C857A;
+      transition: color 0.4s ease;
     }
 
     .pgp {
@@ -171,6 +175,7 @@
       font-family: monospace;
       margin-bottom: 1rem;
       color: #6b665e;
+      transition: color 0.4s ease;
     }
 
     .btn {
@@ -184,7 +189,7 @@
       color: inherit;
       font-size: 0.875rem;
       margin-top: 0.5rem;
-      transition: 0.2s;
+      transition: 0.3s;
     }
 
     .btn:hover {
@@ -198,24 +203,23 @@
     }
 
     /* =============================== */
-    /*   PROFILBILD SWIPE ANIMATION   */
+    /*   PROFILBILD SWIPE + DARKMODE  */
     /* =============================== */
 
     .image-container {
       width: 120px;
-      height: auto;
       display: flex;
       justify-content: center;
       position: relative;
       overflow: hidden;
     }
 
-.profile-image-wrapper {
-  position: relative;
-  width: 100px;
-  height: 100px; /* oder exakt Höhe deines Bildes */
-  overflow: hidden;
-}
+    .profile-image-wrapper {
+      position: relative;
+      width: 100px;
+      height: 100px;
+      overflow: hidden;
+    }
 
     .profile-image-main,
     .profile-image-alt {
@@ -228,21 +232,19 @@
       transition: transform 0.35s ease-out, opacity 0.35s ease-out;
     }
 
-    /* Hauptbild standard sichtbar */
     .profile-image-main {
       transform: translateX(0%);
       opacity: 1;
       z-index: 1;
     }
 
-    /* Alternativbild kommt von rechts rein */
     .profile-image-alt {
       transform: translateX(100%);
       opacity: 0;
       z-index: 2;
     }
 
-    /* Hover-Effekt: anderes Bild swiped rein */
+    /* Swipe */
     .image-container:hover .profile-image-main {
       transform: translateX(-100%);
       opacity: 0;
@@ -251,6 +253,47 @@
     .image-container:hover .profile-image-alt {
       transform: translateX(0%);
       opacity: 1;
+    }
+
+    /* =============================== */
+    /*         DARK MODE STYLE         */
+    /* =============================== */
+
+    body.dark-mode {
+      background-color: #0e0e0e;
+      color: #e6e6e6;
+    }
+
+    body.dark-mode .card {
+      background: rgba(20,20,20,0.9);
+      box-shadow: 0 18px 40px rgba(0,0,0,0.6);
+    }
+
+    body.dark-mode .subtitle,
+    body.dark-mode .pgp,
+    body.dark-mode .email-symbol {
+      color: #d4d4d4 !important;
+    }
+
+    body.dark-mode a {
+      color: #ffffff !important;
+    }
+
+    body.dark-mode .btn {
+      border-color: #777;
+      background-color: #1a1a1a;
+    }
+
+    body.dark-mode .btn:hover {
+      background-color: #2a2a2a;
+    }
+
+    body.dark-mode .terminal-box {
+      color: #00ff00 !important;
+    }
+
+    body.dark-mode .terminal-box.is-typing::after {
+      background: #00ff00 !important;
     }
   </style>
 </head>
@@ -261,15 +304,10 @@
       <header>
         <h1 class="headline">
           <a href="mailto:kolja@sagorski.org" class="headline-email">
-
-            <!-- Normale Anzeige -->
             <span class="email-text">
               Kolja<span class="email-symbol">@</span>Sagorski<span class="email-symbol">.org</span>
             </span>
-
-            <!-- Terminal-Ausgabe, wird per JS beschrieben -->
             <span class="terminal-box" id="terminal-box"></span>
-
           </a>
         </h1>
 
@@ -300,25 +338,16 @@
       </a>
     </section>
 
-    <aside class="image-container">
+    <aside class="image-container" id="profile-hover">
       <div class="profile-image-wrapper">
-        <!-- Hauptbild -->
-        <img
-          src="https://sagorski.org/ich.png"
-          alt="Portrait of Kolja Sagorski, Head of IT and Security Analyst"
-          class="profile-image-main"
-        />
-        <!-- Alternativ-/Nerd-Bild – URL anpassen -->
-        <img
-          src="https://sagorski.org/ich_dark.jpeg"
-          alt="Alternate portrait of Kolja Sagorski"
-          class="profile-image-alt"
-        />
+        <img src="https://sagorski.org/ich.png" alt="Portrait of Kolja" class="profile-image-main" />
+        <img src="https://sagorski.org/ich_dark.jpeg" alt="Dark portrait" class="profile-image-alt" />
       </div>
     </aside>
   </main>
 
   <script>
+    /* Terminal typing animation */
     (function () {
       const link = document.querySelector('.headline-email');
       const box = document.getElementById('terminal-box');
@@ -345,10 +374,9 @@
 
         let fullText = '';
         let delay = 0;
-        const charDelay = 40; // Tippgeschwindigkeit
+        const charDelay = 40;
 
         lines.forEach((line, index) => {
-          // kleine Pause vor jeder neuen Zeile
           delay += index === 0 ? 0 : 250;
 
           for (let i = 0; i <= line.length; i++) {
@@ -363,7 +391,6 @@
             delay += charDelay;
           }
 
-          // nach Fertigstellen der Zeile echten Zeilenumbruch hinzufügen
           const finalizeId = setTimeout(() => {
             fullText += line + (index < lines.length - 1 ? '\n' : '');
             box.textContent = fullText;
@@ -372,10 +399,10 @@
           timeouts.push(finalizeId);
         });
 
-        // Cursor nach Ende des Tippens optional lassen oder entfernen
         const endId = setTimeout(() => {
           box.classList.remove('is-typing');
         }, delay + 300);
+
         timeouts.push(endId);
       }
 
@@ -388,6 +415,17 @@
       link.addEventListener('mouseenter', startTyping);
       link.addEventListener('mouseleave', resetTyping);
     })();
+
+    /* Dark mode activation on image hover */
+    const img = document.getElementById("profile-hover");
+
+    img.addEventListener("mouseenter", () => {
+      document.body.classList.add("dark-mode");
+    });
+
+    img.addEventListener("mouseleave", () => {
+      document.body.classList.remove("dark-mode");
+    });
   </script>
 </body>
 </html>
