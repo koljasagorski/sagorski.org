@@ -5,13 +5,19 @@
   <title>Kolja Sagorski – Head of IT, CISA & Security Analyst</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="color-scheme" content="light only" />
-  <meta name="description" content="Ich bin Head of IT, CISA und Security Analyst und spezialisiere mich auf Cybersecurity, IT-Strategie, Cloud-Lösungen und Enterprise-Infrastrukturen." />  <meta name="author" content="Kolja Sagorski" />
+  <meta name="description" content="Ich bin Head of IT, CISA und Security Analyst und spezialisiere mich auf Cybersecurity, IT-Strategie, Cloud-Lösungen und Enterprise-Infrastrukturen." />  
+  <meta name="author" content="Kolja Sagorski" />
   <meta name="robots" content="index,follow" />
 
   <link rel="canonical" href="https://sagorski.org/" />
   <link rel="alternate" href="https://sagorski.org/" hreflang="de" />
 
-  <link rel="icon" type="image/png" href="https://sagorski.org/ich.png" />
+ <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+ <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+ <link rel="shortcut icon" href="/favicon.ico" />
+ <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+ <link rel="manifest" href="/site.webmanifest" />
+
 
   <!-- Open Graph -->
   <meta property="og:site_name" content="Kolja Sagorski" />
@@ -39,7 +45,8 @@
     "image": "https://sagorski.org/ich.png",
     "url": "https://sagorski.org/",
     "sameAs": [
-      "https://www.linkedin.com/in/koljasagorski"
+      "https://www.linkedin.com/in/koljasagorski",
+      "https://tryhackme.com/p/kolja" 
     ],
     "address": {
       "@type": "PostalAddress",
@@ -94,9 +101,11 @@
       margin-bottom: 1rem;
     }
 
-    .text-area p {
-      margin-bottom: 0.75rem;
-      line-height: 1.5;
+    .pgp {
+      font-size: 0.85rem;
+      font-family: monospace;
+      margin-bottom: 1rem;
+      color: #6b665e;
     }
 
     .btn {
@@ -109,13 +118,18 @@
       border: 1px solid #BAB3A8;
       text-decoration: none;
       color: inherit;
-      transition: transform 0.2s ease, background-color 0.2s ease;
+      transition: transform 0.15s ease, background-color 0.2s ease;
       margin-top: 0.5rem;
     }
 
     .btn:hover {
       transform: scale(1.03);
       background-color: #E6DFD3;
+    }
+
+    .btn svg {
+      height: 16px;
+      width: 16px;
     }
 
     .image-container {
@@ -149,12 +163,33 @@
       <header>
         <h1 class="headline">Kolja Sagorski</h1>
         <h2 class="subtitle">Head of IT · CISA · Security Analyst</h2>
+
+        <!-- PGP Fingerprint -->
+        <div class="pgp">
+          <strong>PGP Fingerprint:</strong><br>
+          1DE3 488A 9F68 E84F B290 849B 5EFB 194E AD8B C39F
+        </div>
       </header>
 
-
-      <a class="btn" href="https://www.linkedin.com/in/koljasagorski" target="_blank" rel="noopener noreferrer">
+      <!-- LinkedIn Button -->
+      <a class="btn" href="https://www.linkedin.com/in/koljasagorski" target="_blank">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="#0A66C2" viewBox="0 0 24 24">
+          <path d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1 4.98 2.12 4.98 3.5zM.5 8h4V24h-4V8zm7.5 0h3.8v2.2h.1c.5-.9 1.8-2.2 3.9-2.2 4.2 0 5 2.8 5 6.4V24h-4v-8.1c0-1.9 0-4.3-2.6-4.3-2.6 0-3 2.1-3 4.2V24h-4V8z"/>
+        </svg>
         LinkedIn
       </a>
+
+      <!-- TryHackMe Button -->
+      <a class="btn" href="https://tryhackme.com/p/kolja" target="_blank">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="#d12727">
+          <circle cx="32" cy="32" r="30" stroke="#000" stroke-width="2" fill="#d12727"/>
+          <circle cx="24" cy="28" r="6" fill="#fff"/>
+          <circle cx="40" cy="28" r="6" fill="#fff"/>
+          <path d="M20 42c4 4 20 4 24 0" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round"/>
+        </svg>
+        TryHackMe
+      </a>
+
     </section>
 
     <aside class="image-container">
