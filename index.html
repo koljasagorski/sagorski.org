@@ -5,7 +5,7 @@
   <title>Kolja Sagorski – Head of IT, CISA & Security Analyst</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="color-scheme" content="light only" />
-  <meta name="description" content="Ich bin Head of IT, CISA und Security Analyst und spezialisiere mich auf Cybersecurity, IT-Strategie, Cloud-Lösungen und Enterprise-Infrastrukturen." />  
+  <meta name="description" content="Ich bin Head of IT, CISA und Security Analyst und spezialisiere mich auf Cybersecurity, IT-Strategie, Cloud-Lösungen und Enterprise-Infrastrukturen." />
   <meta name="author" content="Kolja Sagorski" />
   <meta name="robots" content="index,follow" />
 
@@ -13,6 +13,7 @@
   <link rel="alternate" href="https://sagorski.org/" hreflang="de" />
   <meta property="og:locale:alternate" content="de_DE" />
 
+  <!-- Favicons -->
   <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="shortcut icon" href="/favicon.ico" />
@@ -25,9 +26,11 @@
   <meta property="og:type" content="profile" />
   <meta property="profile:first_name" content="Kolja" />
   <meta property="profile:last_name" content="Sagorski" />
-  <meta property="og:description" content="Head of IT, CISA, and Security Analyst focused on cybersecurity, IT strategy, cloud solutions, and secure enterprise infrastructure." />
+  <meta property="og:description" content="Head of IT, CISA, and Security Analyst focused on cybersecurity, cloud solutions, IT strategy & secure enterprise infrastructure." />
   <meta property="og:image" content="https://sagorski.org/ogimage.png" />
+  <meta property="og:image:type" content="image/png" />
   <meta property="og:url" content="https://sagorski.org/" />
+  <meta property="og:locale" content="en_US" />
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
@@ -72,36 +75,39 @@
     }
 
     .card {
-      background: rgba(255, 255, 255, 0.8);
+      background: rgba(255,255,255,0.8);
       padding: 2rem;
       border-radius: 12px;
       display: flex;
-      align-items: center;
       gap: 2rem;
+      align-items: center;
       max-width: 700px;
       width: 100%;
       box-shadow: 0 18px 40px rgba(0,0,0,0.06);
     }
 
+    .text-area { flex: 1; }
+
     .headline {
       font-size: 2.2rem;
-      margin-bottom: 0.3rem;
+      margin-bottom: .3rem;
       position: relative;
     }
 
-    /* ========================================================= */
-    /*         TERMINAL ANIMATION — ALWAYS RESTART ON HOVER      */
-    /* ========================================================= */
+    /* =============================== */
+    /*   TERMINAL TYPING ANIMATION    */
+    /* =============================== */
 
     .headline-email {
-      position: relative;
-      display: inline-block;
       text-decoration: none;
       color: inherit;
+      position: relative;
+      display: inline-block;
     }
 
     .email-text {
-      transition: .25s ease;
+      transition: .25s;
+      display: inline-block;
     }
 
     .headline-email:hover .email-text {
@@ -109,71 +115,93 @@
       transform: translateY(-12px);
     }
 
+    /* Terminal box appears on hover */
     .terminal-box {
       position: absolute;
       top: 0;
       left: 0;
       opacity: 0;
-      font-family: "Courier New", monospace;
-      font-size: 0.85rem;
       pointer-events: none;
+      font-family: "Courier New", monospace;
+      font-size: .85rem;
       white-space: nowrap;
     }
 
-    /* Terminal appears on hover */
     .headline-email:hover .terminal-box {
       opacity: 1;
     }
 
-    /* Animation lines — NO ANIMATION UNTIL HOVER */
     .tline {
       opacity: 0;
       position: absolute;
       left: 0;
+      overflow: hidden;
+      border-right: 2px solid #000;
+      white-space: nowrap;
     }
 
+    /* LINE 1 – 29 chars */
     .headline-email:hover .t1 {
-      animation: fade 1.5s ease forwards 0.2s;
+      animation:
+        typing1 1.4s steps(29) forwards 0.2s,
+        hide 0.2s forwards 1.6s;
+      opacity: 1;
     }
 
+    /* LINE 2 – 32 chars */
     .headline-email:hover .t2 {
-      animation: fade 1.5s ease forwards 1.8s;
+      animation:
+        typing2 1.6s steps(32) forwards 1.9s,
+        hide 0.2s forwards 3.7s;
+      opacity: 1;
     }
 
+    /* LINE 3 – 11 chars (stay visible) */
     .headline-email:hover .t3 {
-      animation: fadeEnd 1.5s ease forwards 3.3s;
+      animation:
+        typing3 1s steps(11) forwards 4s;
+      opacity: 1;
+      border-right: none;
     }
 
-    @keyframes fade {
-      0% { opacity: 0; }
-      20% { opacity: 1; }
-      80% { opacity: 1; }
-      100% { opacity: 0; }
+    @keyframes typing1 {
+      from { width: 0ch; opacity: 1; }
+      to   { width: 29ch; opacity: 1; }
+    }
+    @keyframes typing2 {
+      from { width: 0ch; opacity: 1; }
+      to   { width: 32ch; opacity: 1; }
+    }
+    @keyframes typing3 {
+      from { width: 0ch; opacity: 1; }
+      to   { width: 11ch; opacity: 1; }
     }
 
-    @keyframes fadeEnd {
-      0% { opacity: 0; }
-      25% { opacity: 1; }
-      100% { opacity: 1; }
+    @keyframes hide {
+      from { opacity: 1; }
+      to   { opacity: 0; }
     }
 
+    /* Cursor blink */
     .cursor {
       display: inline-block;
       width: 6px;
       height: 1em;
-      background: #000;
+      background: black;
       animation: blink .6s infinite;
       margin-left: 4px;
     }
 
     @keyframes blink {
-      0%, 50% { opacity: 1; }
-      51%, 100% { opacity: 0; }
+      0%,50% { opacity: 1; }
+      50.01%,100% { opacity: 0; }
     }
 
-    .email-symbol { font-size: .55em; opacity: .85; margin: 0 .15rem; color: #8C857A; }
-    .subtitle { margin-bottom: 1rem; font-size: 1rem; font-weight: 300; color: #8C857A; }
-    .pgp { font-size: 0.85rem; font-family: monospace; margin-bottom: 1rem; }
+    /* ============================ */
+
+    .email-symbol { font-size: .55em; opacity:.85; margin: 0 .15rem; }
+    .subtitle { font-size: 1rem; font-weight: 300; margin-bottom: 1rem; }
+    .pgp { font-size: .85rem; font-family: monospace; margin-bottom: 1rem; }
 
     .btn {
       display: inline-flex;
@@ -181,23 +209,23 @@
       gap: .35rem;
       padding: .55rem 1.2rem;
       border-radius: .375rem;
-      font-size: .875rem;
       border: 1px solid #BAB3A8;
       color: inherit;
       text-decoration: none;
-      transition: 0.2s;
+      font-size: .875rem;
       margin-top: .5rem;
+      transition: .2s;
     }
 
-    .btn svg { width: 16px; height: 16px; }
     .btn:hover { transform: scale(1.03); background-color: #E6DFD3; }
+    .btn svg { width: 16px; height: 16px; }
 
     .image-container { width: 120px; display: flex; justify-content: center; }
     .profile-image { width: 100px; border-radius: 6px; }
 
   </style>
-
 </head>
+
 <body>
 
   <main class="card">
@@ -207,16 +235,18 @@
       <h1 class="headline">
         <a href="mailto:kolja@sagorski.org" class="headline-email">
 
-          <!-- STATIC EMAIL TEXT -->
+          <!-- Standard visible email -->
           <span class="email-text">
             Kolja<span class="email-symbol">@</span>Sagorski<span class="email-symbol">.org</span>
           </span>
 
-          <!-- TERMINAL ANIMATION -->
+          <!-- Terminal animation -->
           <span class="terminal-box">
 
             <span class="tline t1">$ connect smtp.sagorski.org<span class="cursor"></span></span>
+
             <span class="tline t2">$ sendmail kolja@sagorski.org<span class="cursor"></span></span>
+
             <span class="tline t3">mail sent ✓</span>
 
           </span>
@@ -226,11 +256,12 @@
 
       <h2 class="subtitle">Head of IT · CISA · Security Analyst</h2>
 
-      <div class="pgp"><strong>PGP Fingerprint:</strong><br>
+      <div class="pgp">
+        <strong>PGP Fingerprint:</strong><br>
         1DE3 488A 9F68 E84F B290 849B 5EFB 194E AD8B C39F
       </div>
 
-      <!-- LinkedIn Button -->
+      <!-- LinkedIn -->
       <a class="btn" href="https://www.linkedin.com/in/koljasagorski" target="_blank">
         <svg xmlns="http://www.w3.org/2000/svg" fill="#0A66C2" viewBox="0 0 24 24">
           <path d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1 4.98 2.12 4.98 3.5zM.5 8h4V24h-4V8zm7.5 0h3.8v2.2h.1c.5-.9 1.8-2.2 3.9-2.2 4.2 0 5 2.8 5 6.4V24h-4v-8.1c0-1.9 0-4.3-2.6-4.3-2.6 0-3 2.1-3 4.2V24h-4V8z"/>
@@ -238,9 +269,9 @@
         LinkedIn
       </a>
 
-      <!-- TryHackMe Button -->
+      <!-- TryHackMe -->
       <a class="btn" href="https://tryhackme.com/p/KoljaSagorski" target="_blank">
-        <svg role="img" viewBox="0 0 24 24">
+        <svg role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
           <path fill="#d12727" d="M10.705 0C7.54 0 4.902 2.285 4.349 5.291a4.525 4.525 0 0 0 -4.107 4.5 4.525 4.525 0 0 0 4.52 4.52h6.761a0.625 0.625 0 1 0 0 -1.25H4.761a3.273 3.273 0 0 1 -3.27 -3.27A3.273 3.273 0 0 1 6.59 7.08a0.625 0.625 0 0 0 0.7 -1.035 4.488 4.488 0 0 0 -1.68 -0.69 5.223 5.223 0 0 1 5.096 -4.104 5.221 5.221 0 0 1 5.174 4.57 4.489 4.489 0 0 0 -0.488 0.305 0.625 0.625 0 1 0 0.731 1.013 3.245 3.245 0 0 1 1.912 -0.616 3.278 3.278 0 0 1 3.203 2.61 0.625 0.625 0 0 0 1.225 -0.251 4.533 4.533 0 0 0 -4.428 -3.61 4.54 4.54 0 0 0 -0.958 0.105C16.556 2.328 13.9 0 10.705 0z"/>
         </svg>
         TryHackMe
@@ -249,7 +280,7 @@
     </section>
 
     <aside class="image-container">
-      <img src="https://sagorski.org/ich.png" class="profile-image" alt="Kolja Sagorski">
+      <img src="https://sagorski.org/ich.png" class="profile-image" alt="Kolja Sagorski" />
     </aside>
 
   </main>
