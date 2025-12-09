@@ -96,28 +96,117 @@
       margin-bottom: 0.3rem;
     }
 
-    /* NAME + dezente Mail-Bestandteile */
-    .headline-email {
-      color: inherit;
-      text-decoration: none;
-      font-weight: 600;
-      transition: 0.2s ease;
-    }
+    /* =============================== */
+    /* TERMINAL MAIL SEND ANIMATION   */
+    /* =============================== */
 
-    .email-symbol {
-      font-size: 0.55em;
-      color: #8C857A;
-      opacity: 0.85;
-      margin: 0 0.15rem;
-    }
+.headline-email {
+  color: inherit;
+  text-decoration: none;
+  font-weight: 600;
+  transition: 0.2s ease;
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  z-index: 20; /* <<< WICHTIG */
+}
 
     .headline-email:hover {
       text-shadow: 0 0 6px rgba(0,0,0,0.15);
     }
 
-    .headline-email:hover .email-symbol {
+    .email-text {
+      display: inline-block;
+      transition: 0.25s ease;
+    }
+
+    .headline-email:hover .email-text {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+
+.terminal-box {
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: #0f0;
+  opacity: 0;
+  white-space: nowrap;
+  font-family: "Courier New", monospace;
+  z-index: 50; /* <<< WICHTIG */
+  pointer-events: none;
+}
+
+    .headline-email:hover .terminal-box {
       opacity: 1;
-      color: #6b665e;
+    }
+
+    .terminal-line {
+      width: 0;
+      overflow: hidden;
+      display: inline-block;
+      border-right: 2px solid #0f0;
+      animation: termTyping 1.8s steps(28) forwards;
+    }
+
+    .cursor-terminal {
+      display: inline-block;
+      width: 10px;
+      height: 1em;
+      background: #0f0;
+      margin-left: 4px;
+      animation: blink 0.6s infinite;
+    }
+
+.ascii-mail {
+  display: inline-block;
+  margin-left: 8px;
+  opacity: 0;
+  animation: asciiFly 1.2s ease forwards;
+  animation-delay: 1.9s;
+  z-index: 60; /* optional */
+  position: relative;
+}
+
+    .terminal-done {
+      display: inline-block;
+      margin-left: 10px;
+      opacity: 0;
+      color: #0f0;
+      animation: termDone 1.6s ease forwards;
+      animation-delay: 3.2s;
+    }
+
+    /* === Terminal Animations === */
+
+    @keyframes termTyping {
+      from { width: 0; }
+      to   { width: 290px; }
+    }
+
+    @keyframes asciiFly {
+      0% { opacity: 0; transform: translateX(0); }
+      30% { opacity: 1; }
+      100% { opacity: 0; transform: translateX(60px); }
+    }
+
+    @keyframes termDone {
+      0% { opacity: 0; }
+      40% { opacity: 1; }
+      100% { opacity: 0.4; }
+    }
+
+    @keyframes blink {
+      0%, 50% { opacity: 1; }
+      50.01%, 100% { opacity: 0; }
+    }
+
+    /* Standard Styles */
+    .email-symbol {
+      font-size: 0.55em;
+      color: #8C857A;
+      opacity: 0.85;
+      margin: 0 0.15rem;
     }
 
     .subtitle {
@@ -132,6 +221,12 @@
       font-family: monospace;
       margin-bottom: 1rem;
       color: #6b665e;
+    }
+
+    .pgp-link {
+      color: inherit;
+      text-decoration: none;
+      cursor: pointer;
     }
 
     .btn {
@@ -169,20 +264,6 @@
       border-radius: 6px;
       display: block;
     }
-    /* PGP-Link soll wie normaler Text aussehen */
-.pgp-link {
-  color: inherit;
-  text-decoration: none;
-  font-weight: normal;
-  cursor: pointer;
-}
-
-.pgp-link:hover {
-  color: inherit;
-  text-decoration: none;
-  font-weight: normal;
-  cursor: pointer;
-}
 
     @media (max-width: 650px) {
       .card {
@@ -191,10 +272,9 @@
       }
       .image-container {
         width: 100%;
-        justify-content: center;
       }
-      
     }
+
   </style>
 </head>
 
@@ -203,23 +283,34 @@
     <section class="text-area">
       <header>
 
-        <!-- HEADLINE: Name + dezente Mailanteile -->
+        <!-- TERMINAL ANIMATION NAME -->
         <h1 class="headline">
           <a href="mailto:kolja@sagorski.org" class="headline-email">
-            Kolja<span class="email-symbol">@</span>Sagorski<span class="email-symbol">.org</span>
+
+            <span class="email-text">
+              Kolja<span class="email-symbol">@</span>Sagorski<span class="email-symbol">.org</span>
+            </span>
+
+            <span class="terminal-box">
+              <span class="terminal-line">$ sendmail kolja@sagorski.org</span>
+              <span class="cursor-terminal"></span>
+              <span class="ascii-mail">[===>]</span>
+              <span class="terminal-done">mail sent ✓</span>
+            </span>
+
           </a>
         </h1>
 
         <h2 class="subtitle">Head of IT · CISA · Security Analyst</h2>
 
-        <!-- PGP Fingerprint -->
         <div class="pgp">
           <strong>PGP Fingerprint:</strong><br>
-          <a class="pgp-link" href="https://keys.openpgp.org/search?q=kolja%40sagorski.org">1DE3 488A 9F68 E84F B290 849B 5EFB 194E AD8B C39F</a>
+          <a class="pgp-link" href="https://keys.openpgp.org/search?q=kolja%40sagorski.org">
+            1DE3 488A 9F68 E84F B290 849B 5EFB 194E AD8B C39F
+          </a>
         </div>
       </header>
 
-      <!-- LinkedIn Button -->
       <a class="btn" href="https://www.linkedin.com/in/koljasagorski" target="_blank">
         <svg xmlns="http://www.w3.org/2000/svg" fill="#0A66C2" viewBox="0 0 24 24">
           <path d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1 4.98 2.12 4.98 3.5zM.5 8h4V24h-4V8zm7.5 0h3.8v2.2h.1c.5-.9 1.8-2.2 3.9-2.2 4.2 0 5 2.8 5 6.4V24h-4v-8.1c0-1.9 0-4.3-2.6-4.3-2.6 0-3 2.1-3 4.2V24h-4V8z"/>
@@ -227,9 +318,8 @@
         LinkedIn
       </a>
 
-      <!-- TryHackMe Button -->
-      <a class="btn" href="https://tryhackme.com/p/kolja" target="_blank">
-        <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" height="16" width="16">
+      <a class="btn" href="https://tryhackme.com/p/KoljaSagorski" target="_blank">
+        <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
           <path fill="#d12727" d="M10.705 0C7.54 0 4.902 2.285 4.349 5.291a4.525 4.525 0 0 0 -4.107 4.5 4.525 4.525 0 0 0 4.52 4.52h6.761a0.625 0.625 0 1 0 0 -1.25H4.761a3.273 3.273 0 0 1 -3.27 -3.27A3.273 3.273 0 0 1 6.59 7.08a0.625 0.625 0 0 0 0.7 -1.035 4.488 4.488 0 0 0 -1.68 -0.69 5.223 5.223 0 0 1 5.096 -4.104 5.221 5.221 0 0 1 5.174 4.57 4.489 4.489 0 0 0 -0.488 0.305 0.625 0.625 0 1 0 0.731 1.013 3.245 3.245 0 0 1 1.912 -0.616 3.278 3.278 0 0 1 3.203 2.61 0.625 0.625 0 0 0 1.225 -0.251 4.533 4.533 0 0 0 -4.428 -3.61 4.54 4.54 0 0 0 -0.958 0.105C16.556 2.328 13.9 0 10.705 0z"/>
         </svg>
         TryHackMe
@@ -238,8 +328,8 @@
     </section>
 
     <aside class="image-container">
-      <img src="https://sagorski.org/ich.png" 
-           alt="Portrait of Kolja Sagorski, Head of IT and Security Analyst" 
+      <img src="https://sagorski.org/ich.png"
+           alt="Portrait of Kolja Sagorski, Head of IT and Security Analyst"
            class="profile-image" />
     </aside>
   </main>
