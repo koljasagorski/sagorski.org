@@ -73,10 +73,32 @@
       color: #474542;
       padding: 1.5rem;
       transition: background 0.4s ease, color 0.4s ease;
+      overflow: hidden;
+    }
+
+    /* =============================== */
+    /*         DARK MODE VIDEO         */
+    /* =============================== */
+
+    #dark-video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      z-index: -1;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.8s ease;
+    }
+
+    body.dark-mode #dark-video {
+      opacity: 1;
     }
 
     .card {
-      background: rgba(255, 255, 255, 0.8);
+      background: rgba(255, 255, 255, 0.85);
       padding: 2rem;
       border-radius: 12px;
       display: flex;
@@ -84,8 +106,10 @@
       align-items: center;
       max-width: 700px;
       width: 100%;
-      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.06);
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.08);
       transition: background 0.4s ease, box-shadow 0.4s ease;
+      position: relative;
+      z-index: 5;
     }
 
     .text-area { flex: 1; }
@@ -127,7 +151,7 @@
       white-space: pre;
       opacity: 0;
       pointer-events: none;
-      transition: color 0.4s ease;
+      transition: color 0.3s ease;
     }
 
     .headline-email:hover .terminal-box {
@@ -154,29 +178,9 @@
     /*   restliches Layout  */
     /* ==================== */
 
-    .email-symbol {
-      font-size: 0.55em;
-      opacity: 0.85;
-      margin: 0 0.15rem;
-      color: #8C857A;
-      transition: color 0.4s ease;
-    }
-
-    .subtitle {
-      font-size: 1rem;
-      font-weight: 300;
-      margin-bottom: 1rem;
-      color: #8C857A;
-      transition: color 0.4s ease;
-    }
-
-    .pgp {
-      font-size: 0.85rem;
-      font-family: monospace;
-      margin-bottom: 1rem;
-      color: #6b665e;
-      transition: color 0.4s ease;
-    }
+    .email-symbol { opacity: 0.85; color: #8C857A; transition: 0.3s; }
+    .subtitle { color: #8C857A; font-size: 1rem; margin-bottom: 1rem; transition: 0.3s; }
+    .pgp { color: #6b665e; font-family: monospace; font-size: 0.85rem; margin-bottom: 1rem; transition: 0.3s; }
 
     .btn {
       display: inline-flex;
@@ -192,15 +196,9 @@
       transition: 0.3s;
     }
 
-    .btn:hover {
-      transform: scale(1.03);
-      background-color: #E6DFD3;
-    }
+    .btn:hover { transform: scale(1.03); background-color: #E6DFD3; }
 
-    .btn svg {
-      width: 16px;
-      height: 16px;
-    }
+    .btn svg { width: 16px; height: 16px; }
 
     /* =============================== */
     /*   PROFILBILD SWIPE + DARKMODE  */
@@ -208,43 +206,35 @@
 
     .image-container {
       width: 120px;
+      height: 100px;
       display: flex;
       justify-content: center;
       position: relative;
       overflow: hidden;
+      cursor: pointer;
     }
 
     .profile-image-wrapper {
-      position: relative;
       width: 100px;
       height: 100px;
+      position: relative;
       overflow: hidden;
     }
 
     .profile-image-main,
     .profile-image-alt {
-      width: 100px;
+      width: 100%;
+      height: 100%;
       border-radius: 6px;
-      display: block;
       position: absolute;
       top: 0;
       left: 0;
       transition: transform 0.35s ease-out, opacity 0.35s ease-out;
     }
 
-    .profile-image-main {
-      transform: translateX(0%);
-      opacity: 1;
-      z-index: 1;
-    }
+    .profile-image-main { transform: translateX(0); opacity: 1; }
+    .profile-image-alt { transform: translateX(100%); opacity: 0; }
 
-    .profile-image-alt {
-      transform: translateX(100%);
-      opacity: 0;
-      z-index: 2;
-    }
-
-    /* Swipe */
     .image-container:hover .profile-image-main {
       transform: translateX(-100%);
       opacity: 0;
@@ -256,36 +246,34 @@
     }
 
     /* =============================== */
-    /*         DARK MODE STYLE         */
+    /*           DARK MODE             */
     /* =============================== */
 
     body.dark-mode {
-      background-color: #0e0e0e;
+      background: #000;
       color: #e6e6e6;
     }
 
     body.dark-mode .card {
-      background: rgba(20,20,20,0.9);
-      box-shadow: 0 18px 40px rgba(0,0,0,0.6);
+      background: rgba(0, 0, 0, 0.75);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
     }
 
     body.dark-mode .subtitle,
     body.dark-mode .pgp,
     body.dark-mode .email-symbol {
-      color: #d4d4d4 !important;
+      color: #dcdcdc !important;
     }
 
-    body.dark-mode a {
-      color: #ffffff !important;
-    }
+    body.dark-mode a { color: #fff !important; }
 
     body.dark-mode .btn {
-      border-color: #777;
-      background-color: #1a1a1a;
+      background: #1b1b1b;
+      border-color: #555;
     }
 
     body.dark-mode .btn:hover {
-      background-color: #2a2a2a;
+      background: #333;
     }
 
     body.dark-mode .terminal-box {
@@ -299,14 +287,19 @@
 </head>
 
 <body>
+
+  <!-- DARK MODE VIDEO -->
+  <video id="dark-video" autoplay muted loop playsinline>
+    <source src="https://sagorski.org/dark.webm" type="video/webm">
+    <source src="https://sagorski.org/dark.mp4" type="video/mp4">
+  </video>
+
   <main class="card">
     <section class="text-area">
       <header>
         <h1 class="headline">
           <a href="mailto:kolja@sagorski.org" class="headline-email">
-            <span class="email-text">
-              Kolja<span class="email-symbol">@</span>Sagorski<span class="email-symbol">.org</span>
-            </span>
+            <span class="email-text">Kolja<span class="email-symbol">@</span>Sagorski<span class="email-symbol">.org</span></span>
             <span class="terminal-box" id="terminal-box"></span>
           </a>
         </h1>
@@ -315,7 +308,7 @@
 
         <div class="pgp">
           <strong>PGP Fingerprint:</strong><br>
-          <a style="text-decoration: none;color: #000;" href="/Kolja_Sagorski_pub.asc">
+          <a style="text-decoration:none;color:#000;" href="/Kolja_Sagorski_pub.asc">
             1DE3 488A 9F68 E84F B290 849B 5EFB 194E AD8B C39F
           </a>
         </div>
@@ -340,8 +333,8 @@
 
     <aside class="image-container" id="profile-hover">
       <div class="profile-image-wrapper">
-        <img src="https://sagorski.org/ich.png" alt="Portrait of Kolja" class="profile-image-main" />
-        <img src="https://sagorski.org/ich_dark.jpeg" alt="Dark portrait" class="profile-image-alt" />
+        <img src="https://sagorski.org/ich.png" class="profile-image-main" alt="Kolja Portrait">
+        <img src="https://sagorski.org/ich_dark.jpeg" class="profile-image-alt" alt="Kolja Dark Portrait">
       </div>
     </aside>
   </main>
@@ -427,5 +420,6 @@
       document.body.classList.remove("dark-mode");
     });
   </script>
+
 </body>
 </html>
