@@ -197,16 +197,59 @@
       height: 16px;
     }
 
+    /* =============================== */
+    /*   PROFILBILD SWIPE ANIMATION   */
+    /* =============================== */
+
     .image-container {
       width: 120px;
+      height: auto;
       display: flex;
       justify-content: center;
+      position: relative;
+      overflow: hidden;
     }
 
-    .profile-image {
+    .profile-image-wrapper {
+      position: relative;
+      width: 100px;
+      height: auto;
+    }
+
+    .profile-image-main,
+    .profile-image-alt {
       width: 100px;
       border-radius: 6px;
       display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      transition: transform 0.35s ease-out, opacity 0.35s ease-out;
+    }
+
+    /* Hauptbild standard sichtbar */
+    .profile-image-main {
+      transform: translateX(0%);
+      opacity: 1;
+      z-index: 1;
+    }
+
+    /* Alternativbild kommt von rechts rein */
+    .profile-image-alt {
+      transform: translateX(100%);
+      opacity: 0;
+      z-index: 2;
+    }
+
+    /* Hover-Effekt: anderes Bild swiped rein */
+    .image-container:hover .profile-image-main {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+
+    .image-container:hover .profile-image-alt {
+      transform: translateX(0%);
+      opacity: 1;
     }
   </style>
 </head>
@@ -233,7 +276,9 @@
 
         <div class="pgp">
           <strong>PGP Fingerprint:</strong><br>
-          <a style="text-decoration: None;" href="/Kolja_Sagorski_pub.asc">1DE3 488A 9F68 E84F B290 849B 5EFB 194E AD8B C39F</a>
+          <a style="text-decoration: none;" href="/Kolja_Sagorski_pub.asc">
+            1DE3 488A 9F68 E84F B290 849B 5EFB 194E AD8B C39F
+          </a>
         </div>
       </header>
 
@@ -255,9 +300,20 @@
     </section>
 
     <aside class="image-container">
-      <img src="https://sagorski.org/ich.png"
-           alt="Portrait of Kolja Sagorski, Head of IT and Security Analyst"
-           class="profile-image" />
+      <div class="profile-image-wrapper">
+        <!-- Hauptbild -->
+        <img
+          src="https://sagorski.org/ich.png"
+          alt="Portrait of Kolja Sagorski, Head of IT and Security Analyst"
+          class="profile-image-main"
+        />
+        <!-- Alternativ-/Nerd-Bild – URL anpassen -->
+        <img
+          src="https://sagorski.org/ich-dark.jpeg"
+          alt="Alternate portrait of Kolja Sagorski"
+          class="profile-image-alt"
+        />
+      </div>
     </aside>
   </main>
 
