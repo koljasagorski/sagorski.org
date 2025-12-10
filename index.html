@@ -76,10 +76,7 @@
       overflow: hidden;
     }
 
-    /* =============================== */
-    /*         DARK MODE VIDEO         */
-    /* =============================== */
-
+    /* DARK MODE VIDEO */
     #dark-video {
       position: fixed;
       top: 0;
@@ -120,10 +117,7 @@
       position: relative;
     }
 
-    /* =============================== */
-    /*    TERMINAL TYPING ANIMATION   */
-    /* =============================== */
-
+    /* TERMINAL TYPING ANIMATION */
     .headline-email {
       position: relative;
       display: inline-block;
@@ -174,10 +168,7 @@
       50.01%, 100% { opacity: 0; }
     }
 
-    /* ==================== */
-    /*   restliches Layout  */
-    /* ==================== */
-
+    /* Layout */
     .email-symbol { opacity: 0.85; color: #8C857A; transition: 0.3s; }
     .subtitle { color: #8C857A; font-size: 1rem; margin-bottom: 1rem; transition: 0.3s; }
     .pgp { color: #6b665e; font-family: monospace; font-size: 0.85rem; margin-bottom: 1rem; transition: 0.3s; }
@@ -197,13 +188,9 @@
     }
 
     .btn:hover { transform: scale(1.03); background-color: #E6DFD3; }
-
     .btn svg { width: 16px; height: 16px; }
 
-    /* =============================== */
-    /*   PROFILBILD SWIPE + DARKMODE  */
-    /* =============================== */
-
+    /* PROFILE IMAGE */
     .image-container {
       width: 120px;
       height: 100px;
@@ -245,10 +232,7 @@
       opacity: 1;
     }
 
-    /* =============================== */
-    /*           DARK MODE             */
-    /* =============================== */
-
+    /* DARK MODE */
     body.dark-mode {
       background: #000;
       color: #e6e6e6;
@@ -283,6 +267,67 @@
     body.dark-mode .terminal-box.is-typing::after {
       background: #00ff00 !important;
     }
+
+    /* ================================= */
+    /*         MOBILE OPTIMIZATION       */
+    /* ================================= */
+    @media (max-width: 768px) {
+
+      body {
+        padding: 0.5rem;
+        overflow: auto;
+      }
+
+      .card {
+        flex-direction: column;
+        text-align: center;
+        gap: 1.5rem;
+        padding: 1.5rem;
+        max-width: 100%;
+        background: rgba(255, 255, 255, 0.92);
+        box-shadow: none;
+      }
+
+      .headline {
+        font-size: 1.8rem;
+        line-height: 2.1rem;
+        word-break: break-word;
+      }
+
+      /* PGP + Subtitle */
+      .subtitle { font-size: 1rem; }
+      .pgp { font-size: 0.85rem; }
+
+      /* Buttons werden full width */
+      .btn {
+        width: 100%;
+        justify-content: center;
+        padding: 0.75rem 1rem;
+        font-size: 0.95rem;
+      }
+
+      /* Profilbild größer + mittig */
+      .image-container {
+        width: 140px;
+        height: 140px;
+        margin: 0 auto;
+      }
+
+      .profile-image-wrapper {
+        width: 140px;
+        height: 140px;
+      }
+
+      /* Hover Effekte deaktiviert auf Mobile */
+      .image-container:hover .profile-image-main,
+      .image-container:hover .profile-image-alt,
+      .headline-email:hover .email-text,
+      .headline-email:hover .terminal-box {
+        transform: none !important;
+        opacity: 1 !important;
+      }
+    }
+
   </style>
 </head>
 
@@ -330,15 +375,16 @@
         TryHackMe
       </a>
 
-       <!-- github -->
+       <!-- GitHub -->
       <a class="btn" href="https://github.com/koljasagorski" target="_blank" rel="noopener noreferrer">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-github" viewBox="0 0 16 16">
-  <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8"/>
-</svg>
+          <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8"/>
+        </svg>
         GitHub
       </a>
     </section>
 
+    <!-- PROFILE IMAGE SWITCH + DARK MODE TRIGGER -->
     <aside class="image-container" id="profile-hover">
       <div class="profile-image-wrapper">
         <img src="https://sagorski.org/ich.png" class="profile-image-main" alt="Kolja Portrait">
