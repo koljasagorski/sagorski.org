@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>Kolja Sagorski – Senior IT Admin, Security Analyst & White hat Hacker</title>
+  <title>Kolja Sagorski – Senior IT Admin, Security Analyst & White Hat Hacker</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="color-scheme" content="light dark" />
   <meta name="description" content="Ich bin Senior IT Admin, Security Analyst und spezialisiere mich auf Cybersecurity, IT-Strategie, Cloud-Lösungen und Enterprise-Infrastrukturen." />
@@ -61,566 +61,687 @@
   </script>
 
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+    :root {
+      --bg: #0a0a0f;
+      --bg-card: rgba(255, 255, 255, 0.03);
+      --bg-card-hover: rgba(255, 255, 255, 0.06);
+      --text: #e4e4e7;
+      --text-muted: #71717a;
+      --text-dim: #52525b;
+      --accent: #22d3ee;
+      --accent-glow: rgba(34, 211, 238, 0.15);
+      --accent-secondary: #a78bfa;
+      --border: rgba(255, 255, 255, 0.08);
+      --border-hover: rgba(255, 255, 255, 0.15);
+    }
+
+    html.light {
+      --bg: #fafafa;
+      --bg-card: rgba(0, 0, 0, 0.02);
+      --bg-card-hover: rgba(0, 0, 0, 0.05);
+      --text: #18181b;
+      --text-muted: #71717a;
+      --text-dim: #a1a1aa;
+      --accent: #0891b2;
+      --accent-glow: rgba(8, 145, 178, 0.1);
+      --accent-secondary: #7c3aed;
+      --border: rgba(0, 0, 0, 0.08);
+      --border-hover: rgba(0, 0, 0, 0.15);
+    }
+
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
       min-height: 100vh;
-      display: grid;
-      grid-template-columns: 1fr;
-      background-color: #FFFFFF;
-      font-family: "Source Sans 3", system-ui, sans-serif;
-      color: #000000;
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      line-height: 1.6;
       transition: background 0.4s ease, color 0.4s ease;
-      overflow: hidden;
+      overflow-x: hidden;
     }
 
-    /* DARK MODE VIDEO */
-    #dark-video {
+    /* Subtle background grid */
+    body::before {
+      content: '';
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      object-fit: cover;
-      z-index: -1;
-      opacity: 0;
+      inset: 0;
+      background-image:
+        linear-gradient(var(--border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 60px 60px;
+      opacity: 0.4;
       pointer-events: none;
-      transition: opacity 0.8s ease;
+      z-index: 0;
     }
 
-    body.dark-mode #dark-video {
-      opacity: 1;
-    }
-
-    /* LAYOUT */
-    .layout {
-      display: grid;
-      grid-template-columns: 1fr 340px;
-      grid-template-rows: 1fr;
-      min-height: 100vh;
-      border: 4px solid #000;
-      box-shadow: 8px 8px 0 #000;
-      position: relative;
-      z-index: 5;
-      transition: border-color 0.4s ease, box-shadow 0.4s ease;
-    }
-
-    .text-area {
-      padding: 3rem 4rem;
-      border-right: 4px solid #000;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      gap: 0;
-      transition: border-color 0.4s ease;
-    }
-
-    /* HEADLINE */
-    .headline {
-      font-size: clamp(4rem, 9vw, 8rem);
-      font-weight: 900;
-      text-transform: uppercase;
-      line-height: 0.9;
-      letter-spacing: -0.02em;
-      border-bottom: 4px solid #000;
-      padding-bottom: 1rem;
-      margin-bottom: 1rem;
-      position: relative;
-      transition: border-color 0.4s ease;
-    }
-
-    .headline:hover {
-      text-shadow: 3px 0 0 #FF2D00, -3px 0 0 #000;
-    }
-
-    .name-line {
-      display: block;
-    }
-
-    /* TERMINAL TYPING ANIMATION */
-    .headline-email {
-      position: relative;
-      display: block;
-      text-decoration: none;
-      color: inherit;
-    }
-
-    .email-text {
-      display: block;
-      transition: 0.25s ease;
-    }
-
-    .headline-email:hover .email-text {
-      opacity: 0;
-      transform: translateY(-14px);
-    }
-
-    .terminal-box {
-      position: absolute;
-      top: calc(100% + 0.75rem);
-      left: 0;
-      font-family: "Courier New", monospace;
-      font-size: 0.8rem;
-      color: #000;
-      white-space: pre;
-      opacity: 0;
+    /* Ambient glow */
+    body::after {
+      content: '';
+      position: fixed;
+      top: -30%;
+      left: -10%;
+      width: 60%;
+      height: 60%;
+      background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
       pointer-events: none;
-      transition: color 0.3s ease;
-      z-index: 10;
+      z-index: 0;
     }
 
-    .headline-email:hover .terminal-box {
-      opacity: 1;
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 4rem 2rem;
+      position: relative;
+      z-index: 1;
     }
 
-    .terminal-box.is-typing::after {
-      content: "";
-      display: inline-block;
-      width: 6px;
-      height: 1em;
-      margin-left: 4px;
-      background: #000;
-      animation: blink 0.6s infinite;
-      vertical-align: bottom;
-    }
-
-    @keyframes blink {
-      0%, 50% { opacity: 1; }
-      50.01%, 100% { opacity: 0; }
-    }
-
-    /* EMAIL SYMBOL */
-    .email-symbol {
-      opacity: 0.5;
-      transition: 0.3s;
-    }
-
-    /* SUBTITLE */
-    .subtitle {
-      color: #000;
-      font-size: 1.1rem;
-      font-weight: 400;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      border-top: 2px solid #000;
-      padding-top: 1rem;
-      margin-bottom: 1.5rem;
-      transition: color 0.3s, border-color 0.4s ease;
-    }
-
-    /* PGP */
-    .pgp {
-      color: #000;
-      font-family: "Courier New", monospace;
-      font-size: 0.85rem;
-      border-left: 4px solid #FF2D00;
-      padding-left: 1rem;
-      margin-bottom: 2rem;
-      transition: color 0.3s, border-color 0.4s ease;
-    }
-
-    .pgp a {
-      text-decoration: none;
-      color: inherit;
-      transition: background 0.15s, color 0.15s, padding 0.15s;
-    }
-
-    .pgp a:hover {
-      background: #000;
-      color: #FFFFFF;
-      padding: 0 2px;
-    }
-
-    /* BUTTON GROUP */
-    .btn-group {
+    /* THEME TOGGLE */
+    .theme-toggle {
+      position: fixed;
+      top: 1.5rem;
+      right: 1.5rem;
+      z-index: 100;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
       display: flex;
-      flex-wrap: wrap;
-      gap: 0.75rem;
-    }
-
-    .btn {
-      display: inline-flex;
       align-items: center;
-      gap: 0.5rem;
-      padding: 0.65rem 1.4rem;
-      border-radius: 0;
-      border: 3px solid #000;
-      text-decoration: none;
-      color: #000;
-      font-size: 0.85rem;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      background: #FFFFFF;
-      box-shadow: 4px 4px 0 #000;
-      transition: transform 0.1s ease, box-shadow 0.1s ease, background 0.1s ease, color 0.1s ease, border-color 0.1s ease;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--text-muted);
+      transition: all 0.3s ease;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
     }
 
-    .btn:hover {
-      transform: translate(4px, 4px);
-      box-shadow: 0 0 0 #000;
-      background: #FF2D00;
-      color: #FFFFFF;
-      border-color: #FF2D00;
+    .theme-toggle:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      box-shadow: 0 0 20px var(--accent-glow);
     }
 
-    .btn:active {
-      transform: translate(6px, 6px);
-      box-shadow: none;
+    .theme-toggle svg {
+      width: 18px;
+      height: 18px;
     }
 
-    .btn svg {
-      width: 16px;
-      height: 16px;
+    .icon-moon, .light .icon-sun { display: none; }
+    .light .icon-moon { display: block; }
+    .icon-sun, .light .icon-sun { display: block; }
+    .light .icon-sun { display: none; }
+
+    /* HEADER */
+    .header {
+      margin-bottom: 3rem;
+    }
+
+    .profile-row {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      border: 2px solid var(--border);
+      object-fit: cover;
+      transition: all 0.4s ease;
       flex-shrink: 0;
     }
 
-    /* IMAGE PANEL */
-    .image-panel {
-      display: flex;
-      align-items: flex-start;
-      justify-content: center;
-      padding: 3rem 2rem;
-      position: relative;
+    .avatar:hover {
+      border-color: var(--accent);
+      box-shadow: 0 0 30px var(--accent-glow);
     }
 
-    .profile-image-wrapper {
-      width: 220px;
-      height: 220px;
+    .profile-info {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .name {
+      font-size: 1.75rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.2;
+    }
+
+    .status-line {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #22c55e;
+      box-shadow: 0 0 8px rgba(34, 197, 94, 0.5);
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    .bio {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      line-height: 1.7;
+      max-width: 540px;
+    }
+
+    .bio .highlight {
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    /* TERMINAL */
+    .terminal {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.25rem 1.5rem;
+      margin: 2rem 0;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      line-height: 1.8;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    .terminal:hover {
+      border-color: var(--border-hover);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .terminal-header {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.75rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .terminal-dots {
+      display: flex;
+      gap: 6px;
+    }
+
+    .terminal-dots span {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+
+    .terminal-dots span:nth-child(1) { background: #ef4444; }
+    .terminal-dots span:nth-child(2) { background: #eab308; }
+    .terminal-dots span:nth-child(3) { background: #22c55e; }
+
+    .terminal-title {
+      color: var(--text-dim);
+      font-size: 0.7rem;
+      margin-left: auto;
+    }
+
+    .terminal-line {
+      display: block;
+      color: var(--text-muted);
+    }
+
+    .terminal-line .prompt {
+      color: var(--accent);
+      user-select: none;
+    }
+
+    .terminal-line .cmd {
+      color: var(--text);
+    }
+
+    .terminal-line .output {
+      color: var(--text-dim);
+      padding-left: 1.2rem;
+    }
+
+    .terminal-line .success {
+      color: #22c55e;
+    }
+
+    /* LINKS / CARDS */
+    .section-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--text-dim);
+      margin-bottom: 0.75rem;
+    }
+
+    .link-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .link-card {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.875rem 1.25rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      text-decoration: none;
+      color: var(--text);
+      transition: all 0.25s ease;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+
+    .link-card:hover {
+      background: var(--bg-card-hover);
+      border-color: var(--border-hover);
+      transform: translateX(4px);
+    }
+
+    .link-card:hover .link-icon {
+      color: var(--accent);
+    }
+
+    .link-card:hover .link-arrow {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .link-icon {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+      color: var(--text-muted);
+      transition: color 0.25s ease;
+    }
+
+    .link-label {
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    .link-desc {
+      font-size: 0.75rem;
+      color: var(--text-dim);
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .link-text {
+      display: flex;
+      flex-direction: column;
+      gap: 0.125rem;
+    }
+
+    .link-arrow {
+      margin-left: auto;
+      color: var(--text-dim);
+      opacity: 0;
+      transform: translateX(-4px);
+      transition: all 0.25s ease;
+    }
+
+    .link-arrow svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    /* PGP SECTION */
+    .pgp-block {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1rem 1.25rem;
+      margin-bottom: 2.5rem;
+      transition: all 0.3s ease;
+    }
+
+    .pgp-block:hover {
+      border-color: var(--border-hover);
+    }
+
+    .pgp-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--text-dim);
+      margin-bottom: 0.375rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .pgp-label svg {
+      width: 14px;
+      height: 14px;
+    }
+
+    .pgp-fingerprint {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      word-break: break-all;
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .pgp-fingerprint:hover {
+      color: var(--accent);
+    }
+
+    /* EMAIL CTA */
+    .email-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.75rem 1.5rem;
+      background: transparent;
+      border: 1px solid var(--accent);
+      border-radius: 8px;
+      color: var(--accent);
+      text-decoration: none;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
+      font-weight: 500;
+      transition: all 0.3s ease;
       position: relative;
       overflow: hidden;
-      cursor: pointer;
     }
 
-    .profile-image-main,
-    .profile-image-alt {
-      width: 100%;
-      height: 100%;
-      border-radius: 0;
-      border: 3px solid #000;
+    .email-cta::before {
+      content: '';
       position: absolute;
-      top: 0;
-      left: 0;
-      object-fit: cover;
-      transition: transform 0.35s ease-out, opacity 0.35s ease-out, border-color 0.4s ease;
-    }
-
-    .profile-image-main { transform: translateX(0); opacity: 1; }
-    .profile-image-alt  { transform: translateX(100%); opacity: 0; }
-
-    .image-panel:hover .profile-image-main {
-      transform: translateX(-100%);
+      inset: 0;
+      background: var(--accent);
       opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: -1;
     }
 
-    .image-panel:hover .profile-image-alt {
-      transform: translateX(0%);
+    .email-cta:hover {
+      color: var(--bg);
+      box-shadow: 0 0 25px var(--accent-glow);
+    }
+
+    .email-cta:hover::before {
       opacity: 1;
     }
 
-    /* DARK MODE */
-    body.dark-mode {
-      background: #000;
-      color: #FFFFFF;
+    .email-cta svg {
+      width: 16px;
+      height: 16px;
     }
 
-    body.dark-mode .layout {
-      border-color: #FFFFFF;
-      box-shadow: 8px 8px 0 #FFFFFF;
-      background: rgba(0, 0, 0, 0.85);
+    /* FOOTER */
+    .footer {
+      margin-top: 4rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: var(--text-dim);
+      font-size: 0.7rem;
+      font-family: 'JetBrains Mono', monospace;
     }
 
-    body.dark-mode .text-area {
-      border-right-color: #FFFFFF;
+    .footer a {
+      color: var(--text-dim);
+      text-decoration: none;
+      transition: color 0.2s ease;
     }
 
-    body.dark-mode .headline {
-      border-bottom-color: #FFFFFF;
+    .footer a:hover {
+      color: var(--accent);
     }
 
-    body.dark-mode .headline:hover {
-      text-shadow: 3px 0 0 #00FF41, -3px 0 0 #FFF;
+    /* SCAN LINE (subtle) */
+    @keyframes scanline {
+      0% { transform: translateY(-100%); }
+      100% { transform: translateY(100vh); }
     }
 
-    body.dark-mode .subtitle {
-      color: #CCCCCC;
-      border-top-color: #FFFFFF;
+    .scanline {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--accent-glow), transparent);
+      opacity: 0.3;
+      pointer-events: none;
+      z-index: 0;
+      animation: scanline 8s linear infinite;
     }
 
-    body.dark-mode .pgp {
-      color: #CCCCCC;
-      border-left-color: #00FF41;
-    }
-
-    body.dark-mode .pgp a:hover {
-      background: #FFFFFF;
-      color: #000;
-    }
-
-    body.dark-mode a {
-      color: #FFFFFF;
-    }
-
-    body.dark-mode .btn {
-      background: #000;
-      color: #FFFFFF;
-      border-color: #FFFFFF;
-      box-shadow: 4px 4px 0 #FFFFFF;
-    }
-
-    body.dark-mode .btn:hover {
-      background: #00FF41;
-      color: #000;
-      border-color: #00FF41;
-      box-shadow: 0 0 0 #FFFFFF;
-    }
-
-    body.dark-mode .terminal-box {
-      color: #00FF41;
-    }
-
-    body.dark-mode .terminal-box.is-typing::after {
-      background: #00FF41;
-    }
-
-    body.dark-mode .profile-image-main,
-    body.dark-mode .profile-image-alt {
-      border-color: #FFFFFF;
-    }
-
-    /* ================================= */
-    /*         MOBILE OPTIMIZATION       */
-    /* ================================= */
-    @media (max-width: 768px) {
-
-      body {
-        overflow: auto;
+    /* RESPONSIVE */
+    @media (max-width: 640px) {
+      .container {
+        padding: 3rem 1.25rem;
       }
 
-      .layout {
-        grid-template-columns: 1fr;
-        grid-template-rows: auto auto;
-        border: 3px solid #000;
-        box-shadow: 5px 5px 0 #000;
-        min-height: auto;
-        margin: 1rem;
+      .profile-row {
+        gap: 1rem;
       }
 
-      .text-area {
-        border-right: none;
-        border-bottom: 3px solid #000;
-        padding: 2rem 1.5rem;
+      .avatar {
+        width: 64px;
+        height: 64px;
+      }
+
+      .name {
+        font-size: 1.4rem;
+      }
+
+      .bio {
+        font-size: 0.95rem;
+      }
+
+      .terminal {
+        padding: 1rem 1.25rem;
+        font-size: 0.72rem;
+      }
+
+      .footer {
+        flex-direction: column;
+        gap: 0.5rem;
         text-align: center;
       }
-
-      .headline {
-        font-size: clamp(2.5rem, 12vw, 4rem);
-        border-bottom: 3px solid #000;
-      }
-
-      .subtitle {
-        border-top: 2px solid #000;
-        font-size: 0.9rem;
-      }
-
-      .pgp {
-        text-align: left;
-        font-size: 0.75rem;
-      }
-
-      .btn-group {
-        flex-direction: column;
-      }
-
-      .btn {
-        width: 100%;
-        justify-content: center;
-        padding: 0.75rem 1rem;
-        font-size: 0.9rem;
-      }
-
-      .image-panel {
-        padding: 2rem;
-        justify-content: center;
-      }
-
-      .profile-image-wrapper {
-        width: 160px;
-        height: 160px;
-      }
-
-      /* Hover effects disabled on mobile */
-      .image-panel:hover .profile-image-main,
-      .image-panel:hover .profile-image-alt,
-      .headline-email:hover .email-text,
-      .headline-email:hover .terminal-box {
-        transform: none !important;
-        opacity: 1 !important;
-      }
-
-      body.dark-mode .layout {
-        border-color: #FFFFFF;
-        box-shadow: 5px 5px 0 #FFFFFF;
-      }
-
-      body.dark-mode .text-area {
-        border-bottom-color: #FFFFFF;
-      }
     }
 
+    /* REDUCED MOTION */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
   </style>
-  <script defer src="https://cloud.umami.is/script.js" data-website-id="1550f8f6-73f1-4684-8c45-5c4d8d8bbf9c"></script>
-  <meta http-equiv="refresh" content = "0;url=https://www.linkedin.com/in/koljasagorski/">
 
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="1550f8f6-73f1-4684-8c45-5c4d8d8bbf9c"></script>
 </head>
 
 <body>
 
-  <!-- DARK MODE VIDEO -->
-  <video id="dark-video" autoplay muted loop playsinline>
-    <source src="https://sagorski.org/dark.webm" type="video/webm">
-    <source src="https://sagorski.org/dark.mp4" type="video/mp4">
-  </video>
+  <div class="scanline"></div>
 
-  <main class="layout">
-    <section class="text-area">
-      <header>
-        <h1 class="headline">
-          <a href="mailto:kolja@sagorski.org" class="headline-email">
-            <span class="email-text">
-              <span class="name-line">Kolja</span>
-              <span class="name-line"><span class="email-symbol">@</span>Sagorski<span class="email-symbol">.org</span></span>
-            </span>
-            <span class="terminal-box" id="terminal-box"></span>
-          </a>
-        </h1>
+  <!-- Theme Toggle -->
+  <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+    <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+    <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  </button>
 
-        <h2 class="subtitle">Senior IT Admin · Security Analyst · White hat Hacker</h2>
+  <main class="container">
 
-        <div class="pgp">
-          <strong>PGP Fingerprint:</strong><br>
-          <a href="/Kolja_Sagorski_pub.asc">
-            1DE3 488A 9F68 E84F B290 849B 5EFB 194E AD8B C39F
-          </a>
+    <!-- HEADER -->
+    <header class="header">
+      <div class="profile-row">
+        <img src="/ich.png" alt="Kolja Sagorski" class="avatar" id="avatar" />
+        <div class="profile-info">
+          <h1 class="name">Kolja Sagorski</h1>
+          <div class="status-line">
+            <span class="status-dot"></span>
+            <span>available for projects</span>
+          </div>
         </div>
-      </header>
-
-      <div class="btn-group">
-        <!-- LinkedIn -->
-        <a class="btn" href="https://www.linkedin.com/in/koljasagorski" target="_blank" rel="noopener noreferrer">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1 4.98 2.12 4.98 3.5zM.5 8h4V24h-4V8zm7.5 0h3.8v2.2h.1c.5-.9 1.8-2.2 3.9-2.2 4.2 0 5 2.8 5 6.4V24h-4v-8.1c0-1.9 0-4.3-2.6-4.3-2.6 0-3 2.1-3 4.2V24h-4V8z"/>
-          </svg>
-          LinkedIn
-        </a>
-
-        <!-- TryHackMe -->
-        <a class="btn" href="https://tryhackme.com/p/KoljaSagorski" target="_blank" rel="noopener noreferrer">
-          <svg role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M10.705 0C7.54 0 4.902 2.285 4.349 5.291a4.525 4.525 0 0 0 -4.107 4.5 4.525 4.525 0 0 0 4.52 4.52h6.761a0.625 0.625 0 1 0 0 -1.25H4.761a3.273 3.273 0 0 1 -3.27 -3.27A3.273 3.273 0 0 1 6.59 7.08a0.625 0.625 0 0 0 0.7 -1.035 4.488 4.488 0 0 0 -1.68 -0.69 5.223 5.223 0 0 1 5.096 -4.104 5.221 5.221 0 0 1 5.174 4.57 4.489 4.489 0 0 0 -0.488 0.305 0.625 0.625 0 1 0 0.731 1.013 3.245 3.245 0 0 1 1.912 -0.616 3.278 3.278 0 0 1 3.203 2.61 0.625 0.625 0 0 0 1.225 -0.251 4.533 4.533 0 0 0 -4.428 -3.61 4.54 4.54 0 0 0 -0.958 0.105C16.556 2.328 13.9 0 10.705 0z"/>
-          </svg>
-          TryHackMe
-        </a>
-
-        <!-- GitHub -->
-        <a class="btn" href="https://github.com/koljasagorski" target="_blank" rel="noopener noreferrer">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-            <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8"/>
-          </svg>
-          GitHub
-        </a>
       </div>
-    </section>
 
-    <!-- PROFILE IMAGE SWITCH + DARK MODE TRIGGER -->
-    <aside class="image-panel" id="profile-hover">
-      <div class="profile-image-wrapper">
-        <img src="https://sagorski.org/ich.png" class="profile-image-main" alt="Kolja Portrait">
-        <img src="https://sagorski.org/ich_dark.jpeg" class="profile-image-alt" alt="Kolja Dark Portrait">
+      <p class="bio">
+        <span class="highlight">Senior IT Admin</span>, <span class="highlight">Security Analyst</span> & <span class="highlight">White Hat Hacker</span> — focused on cybersecurity, cloud infrastructure, IT strategy, and building secure enterprise systems.
+      </p>
+    </header>
+
+    <!-- TERMINAL -->
+    <div class="terminal">
+      <div class="terminal-header">
+        <div class="terminal-dots"><span></span><span></span><span></span></div>
+        <span class="terminal-title">kolja@sagorski.org</span>
       </div>
-    </aside>
+      <span class="terminal-line"><span class="prompt">$</span> <span class="cmd">whoami</span></span>
+      <span class="terminal-line"><span class="output">kolja.sagorski</span></span>
+      <span class="terminal-line"><span class="prompt">$</span> <span class="cmd">cat /etc/role</span></span>
+      <span class="terminal-line"><span class="output">Senior IT Admin | Security Analyst | CISA</span></span>
+      <span class="terminal-line"><span class="prompt">$</span> <span class="cmd">uptime</span></span>
+      <span class="terminal-line"><span class="output success" id="uptime-output">loading...</span></span>
+    </div>
+
+    <!-- LINKS -->
+    <div class="section-label">// connect</div>
+    <div class="link-grid">
+      <a class="link-card" href="https://www.linkedin.com/in/koljasagorski" target="_blank" rel="noopener noreferrer">
+        <svg class="link-icon" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1 4.98 2.12 4.98 3.5zM.5 8h4V24h-4V8zm7.5 0h3.8v2.2h.1c.5-.9 1.8-2.2 3.9-2.2 4.2 0 5 2.8 5 6.4V24h-4v-8.1c0-1.9 0-4.3-2.6-4.3-2.6 0-3 2.1-3 4.2V24h-4V8z"/>
+        </svg>
+        <div class="link-text">
+          <span class="link-label">LinkedIn</span>
+          <span class="link-desc">in/koljasagorski</span>
+        </div>
+        <span class="link-arrow"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+      </a>
+
+      <a class="link-card" href="https://github.com/koljasagorski" target="_blank" rel="noopener noreferrer">
+        <svg class="link-icon" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
+          <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8"/>
+        </svg>
+        <div class="link-text">
+          <span class="link-label">GitHub</span>
+          <span class="link-desc">koljasagorski</span>
+        </div>
+        <span class="link-arrow"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+      </a>
+
+      <a class="link-card" href="https://tryhackme.com/p/KoljaSagorski" target="_blank" rel="noopener noreferrer">
+        <svg class="link-icon" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M10.705 0C7.54 0 4.902 2.285 4.349 5.291a4.525 4.525 0 0 0 -4.107 4.5 4.525 4.525 0 0 0 4.52 4.52h6.761a0.625 0.625 0 1 0 0 -1.25H4.761a3.273 3.273 0 0 1 -3.27 -3.27A3.273 3.273 0 0 1 6.59 7.08a0.625 0.625 0 0 0 0.7 -1.035 4.488 4.488 0 0 0 -1.68 -0.69 5.223 5.223 0 0 1 5.096 -4.104 5.221 5.221 0 0 1 5.174 4.57 4.489 4.489 0 0 0 -0.488 0.305 0.625 0.625 0 1 0 0.731 1.013 3.245 3.245 0 0 1 1.912 -0.616 3.278 3.278 0 0 1 3.203 2.61 0.625 0.625 0 0 0 1.225 -0.251 4.533 4.533 0 0 0 -4.428 -3.61 4.54 4.54 0 0 0 -0.958 0.105C16.556 2.328 13.9 0 10.705 0z"/>
+        </svg>
+        <div class="link-text">
+          <span class="link-label">TryHackMe</span>
+          <span class="link-desc">KoljaSagorski</span>
+        </div>
+        <span class="link-arrow"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+      </a>
+    </div>
+
+    <!-- PGP -->
+    <div class="section-label">// pgp</div>
+    <div class="pgp-block">
+      <div class="pgp-label">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        Fingerprint
+      </div>
+      <a href="/Kolja_Sagorski_pub.asc" class="pgp-fingerprint">1DE3 488A 9F68 E84F B290 849B 5EFB 194E AD8B C39F</a>
+    </div>
+
+    <!-- EMAIL -->
+    <div class="section-label">// reach out</div>
+    <a href="mailto:kolja@sagorski.org" class="email-cta">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      kolja@sagorski.org
+    </a>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <span>&copy; 2025 Kolja Sagorski</span>
+      <a href="/security.txt">security.txt</a>
+    </footer>
+
   </main>
 
   <script>
-    /* Terminal typing animation */
+    /* Theme toggle with localStorage persistence */
     (function () {
-      const link = document.querySelector('.headline-email');
-      const box = document.getElementById('terminal-box');
+      const toggle = document.getElementById('theme-toggle');
+      const root = document.documentElement;
+      const stored = localStorage.getItem('theme');
 
-      if (!link || !box) return;
-
-      const lines = [
-        '$ connect smtp.sagorski.org',
-        '$ sendmail kolja@sagorski.org',
-        '$ mail sent ✓'
-      ];
-
-      let timeouts = [];
-
-      function clearAllTimeouts() {
-        timeouts.forEach(id => clearTimeout(id));
-        timeouts = [];
+      if (stored === 'light') {
+        root.classList.add('light');
+      } else if (stored === 'dark') {
+        root.classList.remove('light');
+      } else if (window.matchMedia('(prefers-color-scheme: light)').matches) {
+        root.classList.add('light');
       }
 
-      function startTyping() {
-        clearAllTimeouts();
-        box.textContent = '';
-        box.classList.add('is-typing');
-
-        let fullText = '';
-        let delay = 0;
-        const charDelay = 40;
-
-        lines.forEach((line, index) => {
-          delay += index === 0 ? 0 : 250;
-
-          for (let i = 0; i <= line.length; i++) {
-            const currentDelay = delay;
-            const part = line.slice(0, i);
-
-            const id = setTimeout(() => {
-              box.textContent = fullText + part;
-            }, currentDelay);
-
-            timeouts.push(id);
-            delay += charDelay;
-          }
-
-          const finalizeId = setTimeout(() => {
-            fullText += line + (index < lines.length - 1 ? '\n' : '');
-            box.textContent = fullText;
-          }, delay);
-
-          timeouts.push(finalizeId);
-        });
-
-        const endId = setTimeout(() => {
-          box.classList.remove('is-typing');
-        }, delay + 300);
-
-        timeouts.push(endId);
-      }
-
-      function resetTyping() {
-        clearAllTimeouts();
-        box.textContent = '';
-        box.classList.remove('is-typing');
-      }
-
-      link.addEventListener('mouseenter', startTyping);
-      link.addEventListener('mouseleave', resetTyping);
+      toggle.addEventListener('click', () => {
+        root.classList.toggle('light');
+        localStorage.setItem('theme', root.classList.contains('light') ? 'light' : 'dark');
+      });
     })();
 
-    /* Dark mode activation on image hover */
-    const img = document.getElementById("profile-hover");
+    /* Dynamic uptime */
+    (function () {
+      const el = document.getElementById('uptime-output');
+      const start = new Date('2019-01-01T00:00:00Z');
 
-    img.addEventListener("mouseenter", () => {
-      document.body.classList.add("dark-mode");
-    });
+      function update() {
+        const now = new Date();
+        const diff = now - start;
+        const days = Math.floor(diff / 86400000);
+        const hours = Math.floor((diff % 86400000) / 3600000);
+        const mins = Math.floor((diff % 3600000) / 60000);
+        el.textContent = 'up ' + days + ' days, ' + hours + ':' + String(mins).padStart(2, '0') + ' — load avg: caffeine, curiosity, code';
+      }
 
-    img.addEventListener("mouseleave", () => {
-      document.body.classList.remove("dark-mode");
-    });
+      update();
+      setInterval(update, 60000);
+    })();
+
+    /* Subtle avatar image swap on hover */
+    (function () {
+      const avatar = document.getElementById('avatar');
+      const darkSrc = '/ich_dark.jpeg';
+      const lightSrc = '/ich.png';
+
+      new Image().src = darkSrc;
+
+      avatar.addEventListener('mouseenter', () => { avatar.src = darkSrc; });
+      avatar.addEventListener('mouseleave', () => { avatar.src = lightSrc; });
+    })();
   </script>
 
 </body>
