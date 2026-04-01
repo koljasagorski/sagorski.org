@@ -20,6 +20,11 @@
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
   <link rel="manifest" href="/site.webmanifest" />
 
+  <!-- Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600;800&display=swap" rel="stylesheet" />
+
   <!-- Open Graph -->
   <meta property="og:site_name" content="Kolja Sagorski" />
   <meta property="og:title" content="Kolja Sagorski – Senior IT Admin & Security Analyst" />
@@ -69,6 +74,13 @@
       min-height: 100vh;
       overflow: hidden;
       font-family: "Source Sans 3", system-ui, sans-serif;
+      transition: grid-template-columns 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Panel hover expansion — left expands when left is hovered, right when right */
+    @media (hover: hover) {
+      body:has(.panel-light:hover) { grid-template-columns: 58fr 42fr; }
+      body:has(.panel-dark:hover)  { grid-template-columns: 42fr 58fr; }
     }
 
     /* ─── LEFT PANEL ─────────────────────────── */
@@ -80,8 +92,36 @@
       flex-direction: column;
       justify-content: center;
       padding: 5rem 4rem;
-      border-right: 1px solid rgba(0, 0, 0, 0.1);
       position: relative;
+    }
+
+    /* Divider: static line + slow scanning glow */
+    .panel-light::after {
+      content: "";
+      position: absolute;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      background: rgba(0, 0, 0, 0.08);
+      z-index: 10;
+    }
+
+    .panel-light::before {
+      content: "";
+      position: absolute;
+      right: -0.5px;
+      width: 1px;
+      height: 30vh;
+      background: linear-gradient(to bottom, transparent, rgba(0, 255, 65, 0.55), transparent);
+      z-index: 11;
+      animation: divider-scan 9s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    @keyframes divider-scan {
+      0%, 100% { top: -30vh; }
+      50%       { top: 100vh; }
     }
 
     /* Name / headline */
@@ -89,8 +129,8 @@
       font-size: clamp(3rem, 5vw, 5.5rem);
       font-weight: 800;
       line-height: 1;
-      letter-spacing: -0.02em;
-      margin-bottom: 1.5rem;
+      letter-spacing: -0.025em;
+      margin-bottom: 1.25rem;
       position: relative;
     }
 
@@ -120,17 +160,15 @@
       left: 0;
       font-family: "Courier New", monospace;
       font-size: 0.8rem;
-      color: #111;
+      color: #333;
       white-space: pre;
       opacity: 0;
       pointer-events: none;
       z-index: 10;
-      line-height: 1.6;
+      line-height: 1.7;
     }
 
-    .headline-email:hover .terminal-box {
-      opacity: 1;
-    }
+    .headline-email:hover .terminal-box { opacity: 1; }
 
     .terminal-box.is-typing::after {
       content: "";
@@ -138,23 +176,29 @@
       width: 6px;
       height: 1em;
       margin-left: 3px;
-      background: #111;
+      background: #333;
       animation: blink 0.6s infinite;
       vertical-align: bottom;
     }
 
     @keyframes blink {
-      0%, 50% { opacity: 1; }
+      0%, 50%      { opacity: 1; }
       50.01%, 100% { opacity: 0; }
     }
 
-    /* Subtitle */
+    /* Rule + Subtitle */
+    .name-rule {
+      border: none;
+      border-top: 1px solid #e8e8e8;
+      margin: 1.25rem 0;
+    }
+
     .subtitle {
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       font-weight: 400;
-      color: #888888;
+      color: #999999;
       text-transform: uppercase;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.12em;
       margin-bottom: 3rem;
     }
 
@@ -162,52 +206,56 @@
     .nav-links {
       display: flex;
       flex-direction: column;
-      gap: 0.15rem;
+      gap: 0;
       align-self: flex-start;
+      width: 100%;
+      max-width: 280px;
     }
 
     .btn {
       display: inline-flex;
       align-items: center;
-      gap: 0.5rem;
-      padding: 0.55rem 0;
+      gap: 0.6rem;
+      padding: 0.7rem 0;
       border: none;
-      border-bottom: 1px solid #e0e0e0;
+      border-bottom: 1px solid #ebebeb;
       background: transparent;
-      color: #111;
+      color: #333;
       font-size: 0.875rem;
       font-weight: 500;
       text-decoration: none;
-      transition: border-color 0.2s ease, gap 0.2s ease, color 0.2s ease;
-      width: 100%;
+      transition: color 0.2s ease, border-color 0.2s ease, padding-left 0.25s ease;
     }
 
+    .btn:first-child { border-top: 1px solid #ebebeb; }
+
     .btn:hover {
-      border-bottom-color: #111;
-      gap: 0.85rem;
       color: #000;
+      border-bottom-color: #bbb;
+      padding-left: 0.5rem;
     }
 
     .btn svg {
-      width: 15px;
-      height: 15px;
+      width: 14px;
+      height: 14px;
       flex-shrink: 0;
-      opacity: 0.7;
+      opacity: 0.5;
       transition: opacity 0.2s ease;
     }
 
-    .btn:hover svg { opacity: 1; }
+    .btn:hover svg { opacity: 0.85; }
 
     .btn-arrow {
       margin-left: auto;
-      font-size: 0.75rem;
+      font-size: 0.7rem;
+      color: #bbb;
       opacity: 0;
-      transform: translateX(-4px);
-      transition: opacity 0.2s ease, transform 0.2s ease;
+      transform: translateX(-6px);
+      transition: opacity 0.25s ease, transform 0.25s ease;
     }
 
     .btn:hover .btn-arrow {
-      opacity: 0.5;
+      opacity: 1;
       transform: translateX(0);
     }
 
@@ -218,8 +266,6 @@
       overflow: hidden;
       display: flex;
       flex-direction: column;
-      justify-content: center;
-      padding: 5rem 4rem;
       color: #FFFFFF;
     }
 
@@ -233,27 +279,30 @@
       z-index: 0;
     }
 
-    /* Overlay for readability */
+    /* Darkening overlay */
     .panel-dark::before {
       content: "";
       position: absolute;
       inset: 0;
-      background: rgba(0, 0, 0, 0.45);
+      background: rgba(0, 0, 0, 0.5);
       z-index: 1;
     }
 
+    /* Content fills panel, image top / PGP bottom */
     .dark-content {
       position: relative;
       z-index: 2;
+      flex: 1;
       display: flex;
       flex-direction: column;
-      gap: 2.5rem;
+      justify-content: space-between;
+      padding: 4rem;
     }
 
-    /* Profile image in dark panel */
+    /* Profile image */
     .profile-image-wrapper {
-      width: 180px;
-      height: 180px;
+      width: 200px;
+      height: 260px;
       position: relative;
       overflow: hidden;
       cursor: default;
@@ -265,10 +314,11 @@
       height: 100%;
       border-radius: 0;
       object-fit: cover;
+      object-position: top center;
       position: absolute;
       top: 0;
       left: 0;
-      transition: transform 0.35s ease-out, opacity 0.35s ease-out;
+      transition: transform 0.4s ease-out, opacity 0.4s ease-out;
     }
 
     .profile-image-main { transform: translateX(0); opacity: 1; }
@@ -288,27 +338,27 @@
     .pgp {
       display: flex;
       flex-direction: column;
-      gap: 0.5rem;
+      gap: 0.6rem;
     }
 
     .pgp-label {
-      font-size: 0.7rem;
+      font-size: 0.65rem;
       font-weight: 600;
       text-transform: uppercase;
-      letter-spacing: 0.15em;
+      letter-spacing: 0.18em;
       color: #00FF41;
     }
 
     .pgp-key {
       font-family: "Courier New", monospace;
       font-size: 0.8rem;
-      color: #AAAAAA;
+      color: rgba(255, 255, 255, 0.45);
       text-decoration: none;
-      line-height: 1.8;
-      transition: color 0.2s ease;
+      line-height: 1.9;
+      transition: color 0.25s ease;
     }
 
-    .pgp-key:hover { color: #FFFFFF; }
+    .pgp-key:hover { color: rgba(255, 255, 255, 0.9); }
 
     /* ─── MOBILE ─────────────────────────────── */
 
@@ -316,20 +366,49 @@
       body {
         grid-template-columns: 1fr;
         overflow: auto;
+        transition: none;
+      }
+
+      /* No panel-expansion on mobile */
+      body:has(.panel-light:hover),
+      body:has(.panel-dark:hover) {
+        grid-template-columns: 1fr;
       }
 
       .panel-light {
-        border-right: none;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-        min-height: 55vh;
-        padding: 3rem 2rem;
+        min-height: 58vh;
+        padding: 3rem 1.75rem 2.5rem;
         justify-content: flex-end;
       }
 
+      /* Remove scanning divider on mobile */
+      .panel-light::before { display: none; }
+      .panel-light::after {
+        right: auto;
+        bottom: 0;
+        top: auto;
+        left: 0;
+        width: 100%;
+        height: 1px;
+        background: rgba(0, 0, 0, 0.1);
+      }
+
       .panel-dark {
-        min-height: 45vh;
-        padding: 3rem 2rem;
-        justify-content: flex-start;
+        min-height: 42vh;
+      }
+
+      .dark-content {
+        padding: 2.5rem 1.75rem;
+        flex-direction: row;
+        align-items: flex-end;
+        justify-content: space-between;
+        gap: 1.5rem;
+      }
+
+      .profile-image-wrapper {
+        width: 110px;
+        height: 140px;
+        flex-shrink: 0;
       }
 
       .headline {
@@ -337,19 +416,12 @@
         margin-bottom: 1rem;
       }
 
-      .subtitle { margin-bottom: 2rem; }
+      .name-rule { margin: 1rem 0; }
+      .subtitle  { margin-bottom: 2rem; }
 
-      .nav-links {
-        width: 100%;
-        align-self: stretch;
-      }
+      .nav-links  { max-width: 100%; }
 
-      .profile-image-wrapper {
-        width: 120px;
-        height: 120px;
-      }
-
-      /* Disable hover-based interactions on touch */
+      /* Disable hover effects on touch */
       .profile-image-wrapper:hover .profile-image-main,
       .profile-image-wrapper:hover .profile-image-alt,
       .headline-email:hover .email-text,
@@ -375,6 +447,8 @@
         <span class="terminal-box" id="terminal-box"></span>
       </a>
     </h1>
+
+    <hr class="name-rule">
 
     <h2 class="subtitle">Senior IT Admin · Security Analyst · White hat Hacker</h2>
 
@@ -433,7 +507,7 @@
     /* Terminal typing animation on name hover */
     (function () {
       const link = document.querySelector('.headline-email');
-      const box = document.getElementById('terminal-box');
+      const box  = document.getElementById('terminal-box');
       if (!link || !box) return;
 
       const lines = [
@@ -464,9 +538,7 @@
           for (let i = 0; i <= line.length; i++) {
             const currentDelay = delay;
             const part = line.slice(0, i);
-            const id = setTimeout(() => {
-              box.textContent = fullText + part;
-            }, currentDelay);
+            const id = setTimeout(() => { box.textContent = fullText + part; }, currentDelay);
             timeouts.push(id);
             delay += charDelay;
           }
@@ -478,9 +550,7 @@
           timeouts.push(finalizeId);
         });
 
-        const endId = setTimeout(() => {
-          box.classList.remove('is-typing');
-        }, delay + 300);
+        const endId = setTimeout(() => { box.classList.remove('is-typing'); }, delay + 300);
         timeouts.push(endId);
       }
 
