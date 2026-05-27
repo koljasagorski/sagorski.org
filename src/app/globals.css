@@ -430,6 +430,16 @@ a {
   color: var(--text-subtle);
 }
 
+.portrait {
+  display: block;
+  width: 116px;
+  height: 116px;
+  margin-top: 1.1rem;
+  border-radius: 8px;
+  border: 0.5px solid var(--border-strong);
+  object-fit: cover;
+}
+
 /* ---------- Beispiel-Befund ---------- */
 
 .finding {
