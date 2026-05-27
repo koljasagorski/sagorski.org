@@ -14,6 +14,9 @@ export function WerIchBin() {
           Sie sprechen mit dem, der testet und schreibt. Kein Sales-Layer, kein
           White-Label, keine Junior-Consultants.
         </p>
+        <p className="vita-references">
+          Referenzen nenne ich vertraulich im Erstgespräch.
+        </p>
       </div>
     </SectionGrid>
   );
