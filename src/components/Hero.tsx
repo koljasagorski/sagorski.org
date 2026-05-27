@@ -15,8 +15,8 @@ export function Hero() {
         </p>
 
         <h1 id="hero-title" className="hero-title">
-          Die Frage ist nicht <em className="accent">ob</em>, sondern{" "}
-          <em>wann</em> — und ob Sie es vor dem Angreifer wissen.
+          Sie haben in Sicherheit investiert. Aber hält sie einem{" "}
+          <em className="accent">echten Angriff</em> stand?
         </h1>
 
         <p className="hero-lead">
