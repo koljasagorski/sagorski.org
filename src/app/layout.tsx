@@ -21,12 +21,11 @@ const instrumentSerif = Instrument_Serif({
 });
 
 const description =
-  "Strukturierte Penetrationstests für mittelständische Unternehmen. Nachweisbar nach BSI, dokumentiert für NIS2, mit klarem Behebungspfad. Aus Gelsenkirchen, für DACH.";
+  "Unabhängige Penetrationstests für den Mittelstand: nachweisbar nach BSI, dokumentiert für NIS2, mit priorisiertem Behebungspfad. Aus Gelsenkirchen für DACH.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
-  title:
-    "Kolja Sagorski — Penetration Testing & IT-Sicherheit für den Mittelstand",
+  title: "Penetrationstests für den Mittelstand — Kolja Sagorski",
   description,
   alternates: {
     canonical: `${site.url}/`,
@@ -69,26 +68,50 @@ export const viewport: Viewport = {
   themeColor: "#fdfdfb",
 };
 
+const personId = `${site.url}/#person`;
+
 const jsonLd = {
   "@context": "https://schema.org",
-  "@type": "Person",
-  name: site.name,
-  jobTitle: "Penetration Tester & IT-Security-Berater",
-  url: site.url,
-  email: `mailto:${site.email}`,
-  address: {
-    "@type": "PostalAddress",
-    addressLocality: site.location,
-    addressRegion: site.region,
-    addressCountry: site.country,
-  },
-  sameAs: [site.linkedin, site.tryhackme],
-  contactPoint: {
-    "@type": "ContactPoint",
-    contactType: "sales",
-    email: site.email,
-    availableLanguage: ["de", "en"],
-  },
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": personId,
+      name: site.name,
+      jobTitle: "Penetration Tester & IT-Security-Berater",
+      url: site.url,
+      email: `mailto:${site.email}`,
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: site.location,
+        addressRegion: site.region,
+        addressCountry: site.country,
+      },
+      sameAs: [site.linkedin, site.tryhackme],
+      knowsAbout: [
+        "Penetrationstests",
+        "Offensive Security",
+        "IT-Sicherheit",
+        "NIS2",
+        "BSI IT-Grundschutz",
+      ],
+      contactPoint: {
+        "@type": "ContactPoint",
+        contactType: "sales",
+        email: site.email,
+        availableLanguage: ["de", "en"],
+      },
+    },
+    {
+      "@type": "ProfessionalService",
+      "@id": `${site.url}/#service`,
+      name: "Penetrationstests & IT-Sicherheitsberatung",
+      url: site.url,
+      provider: { "@id": personId },
+      areaServed: ["DE", "AT", "CH"],
+      serviceType: "Penetration Testing",
+      description,
+    },
+  ],
 };
 
 export default function RootLayout({
