@@ -291,12 +291,12 @@ a {
 
 .hero-title {
   margin: 28px 0 0;
-  max-width: 760px;
+  max-width: 800px;
   font-family: var(--font-instrument), Georgia, serif;
   font-weight: 400;
-  font-size: clamp(33px, 6vw, 48px);
-  line-height: 1.1;
-  letter-spacing: -0.018em;
+  font-size: clamp(30px, 5vw, 44px);
+  line-height: 1.2;
+  letter-spacing: -0.005em;
   color: var(--text);
 }
 
