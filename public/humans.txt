@@ -1,0 +1,15 @@
+/* WER */
+  Pentester & Autor: Kolja Sagorski
+  Kontakt:           kolja@sagorski.org
+  Standort:          Gelsenkirchen, NRW, DE
+  Disclosure:        /.well-known/security.txt
+
+/* DANK */
+  An alle, die diese Datei lesen — Sie gehören zu den Neugierigen.
+  Genau die richtige Eigenschaft, wenn es um Sicherheit geht.
+
+/* TECH */
+  Next.js · TypeScript · Tailwind CSS · Cloudflare Pages
+  Keine Tracker. Keine Cookies. Keine Buzzwords.
+
+                    ↑ ↑ ↓ ↓ ← → ← → B A

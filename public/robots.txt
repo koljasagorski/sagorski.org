@@ -1,3 +1,11 @@
+# ┌────────────────────────────────────────────────┐
+# │  Sie lesen robots.txt. Gründlichkeit zählt.      │
+# │  Nichts versteckt — fast nichts:                 │
+# │    /.well-known/security.txt                     │
+# │    /humans.txt                                   │
+# │  Neugier ist die erste Phase. kolja@sagorski.org │
+# └────────────────────────────────────────────────┘
+
 User-agent: *
 Allow: /
 

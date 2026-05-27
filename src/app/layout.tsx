@@ -114,6 +114,20 @@ const jsonLd = {
   ],
 };
 
+// Easter eggs for the curious (devtools / source divers). Invisible to normal visitors.
+const eggScript = `(function(){try{
+var b="color:#b8472d;font:600 13px ui-sans-serif,system-ui";
+var m="color:#6a6a6a;font:12px ui-sans-serif,system-ui";
+var f="color:#999;font:11px ui-monospace,monospace";
+console.log("%cNeugier ist die erste Phase. Schön, dass Sie hier sind.",b);
+console.log("%cSchwachstelle gefunden — hier oder anderswo? Sagen Sie es mir, bevor es ein anderer tut.\\nResponsible Disclosure → kolja@sagorski.org · /.well-known/security.txt",m);
+console.log("%c↑ ↑ ↓ ↓ ← → ← → B A",f);
+var s=["arrowup","arrowup","arrowdown","arrowdown","arrowleft","arrowright","arrowleft","arrowright","b","a"],i=0;
+addEventListener("keydown",function(e){i=((e.key||"").toLowerCase()===s[i])?i+1:0;if(i===s.length){i=0;
+console.log("%cFLAG{neugier_ist_die_erste_phase_eines_angriffs}","color:#1d9e75;font:700 15px ui-monospace,monospace");
+console.log("%cGut gemacht. Genau diese Hartnäckigkeit suche ich bei einem Pentest. → kolja@sagorski.org",m);}});
+}catch(e){}})();`;
+
 export default function RootLayout({
   children,
 }: {
@@ -128,10 +142,12 @@ export default function RootLayout({
         <Header />
         {children}
         <Footer />
+        <link rel="author" href="/humans.txt" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
+        <script dangerouslySetInnerHTML={{ __html: eggScript }} />
       </body>
     </html>
   );
