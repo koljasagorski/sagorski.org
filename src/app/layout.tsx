@@ -1,7 +1,5 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Instrument_Serif } from "next/font/google";
-import { Header } from "@/components/Header";
-import { Footer } from "@/components/Footer";
 import { site } from "@/lib/site";
 import "./globals.css";
 
@@ -139,9 +137,7 @@ export default function RootLayout({
         <a href="#main" className="skip-link">
           Zum Hauptinhalt springen
         </a>
-        <Header />
         {children}
-        <Footer />
         <link rel="author" href="/humans.txt" />
         <script
           type="application/ld+json"
