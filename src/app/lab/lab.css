@@ -35,7 +35,6 @@ html, body {
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--lab-muted);
-  mix-blend-mode: difference;
 }
 .lab2-header a {
   color: var(--lab-fg);
@@ -163,13 +162,17 @@ html, body {
   width: 100%;
   max-width: 460px;
   background: var(--lab-card-bg);
-  backdrop-filter: blur(18px) saturate(140%);
-  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border: 1px solid var(--lab-card-border);
   border-radius: 14px;
   padding: 1.4rem 1.6rem;
   box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.04);
   color: var(--lab-fg);
+  /* Pin to its own compositing layer; prevents Safari flicker when
+     the surrounding scene + 3D canvas re-paint. */
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
 }
 
 .lab2-card-head {

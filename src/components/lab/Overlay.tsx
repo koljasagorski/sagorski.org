@@ -17,14 +17,14 @@ export function Overlay() {
 
       // Hide all initially
       acts.forEach((act) => {
-        gsap.set(act, { opacity: 0, y: 36, filter: "blur(12px)" });
+        gsap.set(act, { opacity: 0, y: 36 });
         gsap.set(act.querySelector(".lab2-eyebrow"), { opacity: 0, x: -14 });
         gsap.set(act.querySelector(".lab2-title"), { opacity: 0, y: 24, filter: "blur(10px)" });
         gsap.set(act.querySelector(".lab2-body"), { opacity: 0, y: 18 });
         const cta = act.querySelector(".lab2-cta");
         if (cta) gsap.set(cta, { opacity: 0, y: 14 });
         const media = act.querySelector(".lab2-act-media");
-        if (media) gsap.set(media, { opacity: 0, x: 40, filter: "blur(10px)" });
+        if (media) gsap.set(media, { opacity: 0, x: 40 });
       });
 
       const tl = gsap.timeline({ paused: true });
@@ -40,9 +40,10 @@ export function Overlay() {
         const cta = act.querySelector(".lab2-cta");
         const media = act.querySelector(".lab2-act-media");
 
-        // Enter
+        // Enter — no filter on .lab2-act or .lab2-act-media (Safari flickers
+        // when an ancestor's animated filter wraps a backdrop-filter element).
         tl.to(act, {
-          opacity: 1, y: 0, filter: "blur(0px)",
+          opacity: 1, y: 0,
           duration: enterDur, ease: "power2.out",
         }, slotStart);
         tl.to(eyebrow, { opacity: 1, x: 0, duration: enterDur * 0.7, ease: "power2.out" },
@@ -57,19 +58,19 @@ export function Overlay() {
         }
         if (media) {
           tl.to(media, {
-            opacity: 1, x: 0, filter: "blur(0px)",
+            opacity: 1, x: 0,
             duration: enterDur * 0.95, ease: "power3.out",
           }, slotStart + enterDur * 0.35);
         }
 
         if (i < N - 1) {
           tl.to(act, {
-            opacity: 0, y: -32, filter: "blur(10px)",
+            opacity: 0, y: -32,
             duration: exitDur, ease: "power2.in",
           }, slotEnd - exitDur);
           if (media) {
             tl.to(media, {
-              opacity: 0, x: -30, filter: "blur(8px)",
+              opacity: 0, x: -30,
               duration: exitDur, ease: "power2.in",
             }, slotEnd - exitDur);
           }
