@@ -4,6 +4,10 @@
   --lab-muted: #9a9a92;
   --lab-faint: #5d5d56;
   --lab-accent: #ff5a3a;
+  --lab-warn: #ff7b4a;
+  --lab-ok: #5fc6a4;
+  --lab-card-bg: rgba(12, 16, 22, 0.62);
+  --lab-card-border: rgba(255, 255, 255, 0.08);
 }
 
 html, body {
@@ -21,9 +25,7 @@ html, body {
 
 .lab2-header {
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
+  top: 0; left: 0; right: 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -44,23 +46,14 @@ html, body {
 }
 .lab2-header a:hover { opacity: 0.85; }
 
-.lab2-wrap {
-  position: relative;
-}
-
+.lab2-wrap { position: relative; }
 .lab2-sticky {
   position: sticky;
   top: 0;
   height: 100vh;
   overflow: hidden;
 }
-
-.lab2-canvas {
-  position: absolute !important;
-  inset: 0;
-  z-index: 0;
-}
-
+.lab2-canvas { position: absolute !important; inset: 0; z-index: 0; }
 .lab2-overlay {
   position: absolute;
   inset: 0;
@@ -71,10 +64,22 @@ html, body {
 .lab2-act {
   position: absolute;
   top: 50%;
-  left: 6vw;
-  max-width: 460px;
+  left: 5vw;
+  right: 5vw;
   transform: translateY(-50%);
   pointer-events: auto;
+  will-change: transform, opacity, filter;
+  display: grid;
+  grid-template-columns: minmax(280px, 460px) minmax(320px, 480px);
+  gap: 4vw;
+  align-items: center;
+  justify-content: space-between;
+}
+.lab2-act-text { min-width: 0; }
+.lab2-act-media {
+  min-width: 0;
+  display: flex;
+  justify-content: flex-end;
   will-change: transform, opacity, filter;
 }
 
@@ -87,7 +92,6 @@ html, body {
   margin-bottom: 1.4rem;
   font-weight: 500;
 }
-
 .lab2-title {
   font-family: "Instrument Serif", Georgia, serif;
   font-size: clamp(30px, 4.4vw, 56px);
@@ -98,7 +102,6 @@ html, body {
   color: var(--lab-fg);
   text-wrap: balance;
 }
-
 .lab2-body {
   font-size: 17px;
   line-height: 1.65;
@@ -106,7 +109,6 @@ html, body {
   margin: 0;
   text-wrap: pretty;
 }
-
 .lab2-cta {
   margin-top: 2rem;
   display: flex;
@@ -114,7 +116,6 @@ html, body {
   align-items: center;
   flex-wrap: wrap;
 }
-
 .lab2-btn {
   display: inline-block;
   background: var(--lab-fg);
@@ -154,22 +155,396 @@ html, body {
   50% { opacity: 0.85; transform: translate(-50%, 4px); }
 }
 
+/* ===========================================
+   CARDS (per-act media)
+   =========================================== */
+
+.lab2-card {
+  width: 100%;
+  max-width: 460px;
+  background: var(--lab-card-bg);
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  border: 1px solid var(--lab-card-border);
+  border-radius: 14px;
+  padding: 1.4rem 1.6rem;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  color: var(--lab-fg);
+}
+
+.lab2-card-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 0.9rem;
+  justify-content: space-between;
+}
+.lab2-card-label {
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--lab-muted);
+  font-weight: 500;
+}
+.lab2-card-sub {
+  font-size: 11px;
+  color: var(--lab-faint);
+  letter-spacing: 0.05em;
+  margin-top: 0.35rem;
+}
+.lab2-card-sub-inline {
+  margin-left: auto;
+  font-size: 11px;
+  color: var(--lab-faint);
+  font-variant-numeric: tabular-nums;
+}
+.lab2-card-foot {
+  margin-top: 1rem;
+  font-size: 11px;
+  color: var(--lab-muted);
+  letter-spacing: 0.05em;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* live pulsing dot */
+.lab2-live { display: inline-flex; align-items: center; }
+.lab2-live i {
+  display: block;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--lab-accent);
+  box-shadow: 0 0 8px var(--lab-accent), 0 0 14px rgba(255, 90, 58, 0.6);
+  animation: lab-live 1.4s ease-in-out infinite;
+}
+@keyframes lab-live {
+  0%, 100% { opacity: 0.55; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.25); }
+}
+
+.lab2-progress {
+  flex: 1;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.07);
+  border-radius: 1px;
+  overflow: hidden;
+}
+.lab2-progress > span {
+  display: block;
+  height: 100%;
+  background: var(--lab-accent);
+  transition: width 600ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ===========================================
+   Akt 1 — Counter + data stream
+   =========================================== */
+
+.lab2-card-num {
+  font-family: "JetBrains Mono", "SF Mono", ui-monospace, monospace;
+  font-size: clamp(36px, 5vw, 56px);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--lab-fg);
+  font-variant-numeric: tabular-nums;
+  margin-top: 0.2rem;
+}
+.lab2-stream {
+  margin-top: 1.1rem;
+  overflow: hidden;
+  mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  padding-top: 0.8rem;
+}
+.lab2-stream-track {
+  display: inline-flex;
+  gap: 2.5rem;
+  white-space: nowrap;
+  animation: lab-stream 28s linear infinite;
+  will-change: transform;
+}
+.lab2-stream-item {
+  font-family: "JetBrains Mono", "SF Mono", ui-monospace, monospace;
+  font-size: 11px;
+  color: var(--lab-muted);
+  letter-spacing: 0.01em;
+}
+@keyframes lab-stream {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* ===========================================
+   Akt 2 — Terminal
+   =========================================== */
+
+.lab2-terminal {
+  padding: 0;
+  overflow: hidden;
+}
+.lab2-term-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0.7rem 0.9rem;
+  background: rgba(0, 0, 0, 0.35);
+  border-bottom: 1px solid var(--lab-card-border);
+}
+.lab2-term-dots { display: inline-flex; gap: 5px; }
+.lab2-term-dots i {
+  width: 9px; height: 9px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.18);
+}
+.lab2-term-dots i:nth-child(1) { background: #ff605c; }
+.lab2-term-dots i:nth-child(2) { background: #ffbd44; }
+.lab2-term-dots i:nth-child(3) { background: #00ca4e; }
+.lab2-term-title {
+  flex: 1;
+  font-size: 11px;
+  color: var(--lab-muted);
+  letter-spacing: 0.08em;
+  text-align: center;
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+}
+.lab2-term-body {
+  padding: 0.8rem 1rem 0.9rem 1rem;
+  font-family: "JetBrains Mono", "SF Mono", ui-monospace, monospace;
+  font-size: 11.5px;
+  line-height: 1.7;
+  min-height: 12.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+.lab2-term-line {
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 240ms ease, transform 240ms ease;
+}
+.lab2-term-line.is-shown {
+  opacity: 1;
+  transform: translateY(0);
+}
+.lab2-term-line .t-ts { color: var(--lab-faint); }
+.lab2-term-line .t-ip { color: #9bb6d8; }
+.lab2-term-line .t-arr { color: var(--lab-faint); }
+.lab2-term-line .t-att { color: #d2d2cc; }
+.lab2-term-line .t-cred { color: var(--lab-muted); }
+.lab2-term-line .t-x {
+  color: var(--lab-accent);
+  font-weight: 500;
+  margin-left: 6px;
+}
+
+/* ===========================================
+   Akt 3 — Assets discovery
+   =========================================== */
+
+.lab2-assets-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  margin-top: 0.4rem;
+}
+.lab2-asset {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  padding: 0.55rem 0.7rem;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.18);
+  opacity: 0.18;
+  transform: translateX(-8px);
+  filter: blur(2px);
+  transition: opacity 450ms ease, transform 450ms ease, filter 450ms ease;
+}
+.lab2-asset.is-shown {
+  opacity: 1;
+  transform: translateX(0);
+  filter: blur(0);
+}
+.lab2-asset-sev {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  font-weight: 600;
+  padding: 3px 7px;
+  border-radius: 3px;
+  min-width: 32px;
+  text-align: center;
+}
+.sev-high { color: var(--lab-accent); background: rgba(255, 90, 58, 0.12); }
+.sev-med { color: var(--lab-warn); background: rgba(255, 123, 74, 0.1); }
+.sev-low { color: #c9b86a; background: rgba(201, 184, 106, 0.08); }
+.lab2-asset-text {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+}
+.lab2-asset-name {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 12.5px;
+  color: var(--lab-fg);
+}
+.lab2-asset-note {
+  font-size: 11px;
+  color: var(--lab-muted);
+}
+
+/* ===========================================
+   Akt 4 — Process steps
+   =========================================== */
+
+.lab2-process-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-top: 0.4rem;
+}
+.lab2-step {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 0.55rem 0.4rem;
+  border-radius: 6px;
+  opacity: 0.35;
+  transition: opacity 350ms ease, background 350ms ease, color 350ms ease;
+}
+.lab2-step.is-active {
+  opacity: 1;
+  background: rgba(255, 90, 58, 0.06);
+}
+.lab2-step.is-done {
+  opacity: 0.65;
+}
+.lab2-step-num {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 10px;
+  color: var(--lab-faint);
+  letter-spacing: 0.05em;
+  min-width: 22px;
+}
+.lab2-step.is-active .lab2-step-num { color: var(--lab-accent); }
+.lab2-step.is-done .lab2-step-num { color: var(--lab-ok); }
+.lab2-step-text { display: flex; flex-direction: column; gap: 1px; flex: 1; min-width: 0; }
+.lab2-step-name {
+  font-size: 13px;
+  color: var(--lab-fg);
+  font-weight: 500;
+}
+.lab2-step-note {
+  font-size: 11px;
+  color: var(--lab-muted);
+}
+.lab2-step-mark {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 14px;
+  color: var(--lab-ok);
+  min-width: 16px;
+  text-align: right;
+}
+.lab2-step.is-active .lab2-step-mark { color: var(--lab-accent); }
+
+/* ===========================================
+   Akt 5 — Trust card
+   =========================================== */
+
+.lab2-trust-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  margin: 0.5rem 0 0.9rem 0;
+}
+.lab2-trust-row {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  padding-bottom: 0.55rem;
+}
+.lab2-trust-row:last-child { border-bottom: none; }
+.lab2-trust-num {
+  font-family: "Instrument Serif", Georgia, serif;
+  font-size: 26px;
+  letter-spacing: -0.01em;
+  color: var(--lab-fg);
+  min-width: 64px;
+}
+.lab2-trust-lbl {
+  font-size: 12.5px;
+  color: var(--lab-muted);
+  line-height: 1.45;
+}
+.lab2-slot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 0.9rem;
+  background: rgba(29, 158, 117, 0.08);
+  border: 1px solid rgba(29, 158, 117, 0.25);
+  border-radius: 8px;
+  text-decoration: none;
+  transition: background 150ms ease;
+  color: var(--lab-fg);
+}
+.lab2-slot:hover { background: rgba(29, 158, 117, 0.14); }
+.lab2-slot-row { display: inline-flex; align-items: center; gap: 9px; }
+.lab2-slot-label {
+  font-size: 11.5px;
+  letter-spacing: 0.05em;
+  color: var(--lab-muted);
+}
+.lab2-slot-time {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 12.5px;
+  color: var(--lab-ok);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ===========================================
+   Mobile
+   =========================================== */
+
+@media (max-width: 1023px) {
+  .lab2-act {
+    grid-template-columns: 1fr;
+    gap: 1.3rem;
+  }
+  .lab2-act-media {
+    justify-content: flex-start;
+  }
+  .lab2-card { max-width: 100%; }
+}
+
 @media (max-width: 767px) {
   .lab2-header { padding: 1rem 1.2rem; font-size: 10px; letter-spacing: 0.16em; }
   .lab2-header a { font-size: 12px; }
   .lab2-act {
-    left: 1.6rem;
-    right: 1.6rem;
-    max-width: none;
-    top: auto;
-    bottom: 14vh;
+    left: 1.2rem; right: 1.2rem;
+    top: auto; bottom: 4vh;
     transform: none;
+    gap: 0.9rem;
   }
-  .lab2-title { font-size: clamp(26px, 8vw, 36px); }
-  .lab2-body { font-size: 15px; }
+  .lab2-title { font-size: clamp(24px, 7.5vw, 32px); margin-bottom: 0.8rem; }
+  .lab2-body { font-size: 14.5px; }
+  .lab2-card { padding: 1rem 1.1rem; border-radius: 12px; }
+  .lab2-card-num { font-size: 36px; }
+  .lab2-stream { display: none; }
+  .lab2-term-body { min-height: 9rem; font-size: 10.5px; }
+  .lab2-term-line { white-space: normal; word-break: break-all; }
+  .lab2-trust-num { font-size: 22px; min-width: 56px; }
   .lab2-hint { display: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .lab2-hint { animation: none; }
+  .lab2-live i { animation: none; opacity: 0.8; }
+  .lab2-stream-track { animation: none; }
 }

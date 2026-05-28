@@ -137,10 +137,13 @@ export const ACTS: Act[] = [
 
 export const ACT_COUNT = ACTS.length;
 
+export type MediaKey = "counter" | "terminal" | "assets" | "process" | "trust";
+
 export type Section = {
   eyebrow: string;
   title: string;
   body: string;
+  media: MediaKey;
 };
 
 export const SECTIONS: Section[] = [
@@ -149,30 +152,35 @@ export const SECTIONS: Section[] = [
     title: "Die Welt hängt am Netz.",
     body:
       "Milliarden Verbindungen pro Sekunde — E-Mails, Bestellungen, Backups, Updates. Vieles davon läuft auch durch Ihr Unternehmen.",
+    media: "counter",
   },
   {
     eyebrow: "02 · Realität",
     title: "Nicht alles, was reinkommt, ist freundlich.",
     body:
       "Automatisierte Tools scannen ununterbrochen jede öffentliche Adresse. Brute-Force-Login. Schwachstellen-Scan. Massenangriff. Es passiert gerade jetzt — auch bei Ihnen.",
+    media: "terminal",
   },
   {
     eyebrow: "03 · Ihr Unternehmen",
     title: "Sie sind nicht zu klein.",
     body:
       "Der Mittelstand ist beliebtes Ziel: gut genug, um zahlungsfähig zu sein — schlecht genug geschützt, um lohnenswert zu sein. Die Frage ist nicht ob, sondern wann jemand findet, was Sie übersehen haben.",
+    media: "assets",
   },
   {
     eyebrow: "04 · Antwort",
     title: "Wissen, wo es brennt — bevor es brennt.",
     body:
       "Ein strukturierter Pentest spielt den Angreifer durch: kontrolliert, dokumentiert, mit Behebungspfad. Sie sehen Ihre Angriffsfläche durch die Augen eines Angreifers — nicht durch die eines Scanners.",
+    media: "process",
   },
   {
     eyebrow: "05 · Klarheit",
     title: "Reden Sie mit dem, der testet.",
     body:
       "30 Minuten, vertraulich. Wir schauen auf Ihre Lage. Sie entscheiden danach in Ruhe.",
+    media: "trust",
   },
 ];
 
