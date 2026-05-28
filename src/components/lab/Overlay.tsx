@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SECTIONS } from "@/lib/lab";
+import { MEDIA } from "./Media";
 
 export function Overlay() {
   const rootRef = useRef<HTMLDivElement>(null);
@@ -14,7 +15,7 @@ export function Overlay() {
       const acts = gsap.utils.toArray<HTMLElement>(".lab2-act");
       const N = acts.length;
 
-      // Hide all acts initially.
+      // Hide all initially
       acts.forEach((act) => {
         gsap.set(act, { opacity: 0, y: 36, filter: "blur(12px)" });
         gsap.set(act.querySelector(".lab2-eyebrow"), { opacity: 0, x: -14 });
@@ -22,9 +23,10 @@ export function Overlay() {
         gsap.set(act.querySelector(".lab2-body"), { opacity: 0, y: 18 });
         const cta = act.querySelector(".lab2-cta");
         if (cta) gsap.set(cta, { opacity: 0, y: 14 });
+        const media = act.querySelector(".lab2-act-media");
+        if (media) gsap.set(media, { opacity: 0, x: 40, filter: "blur(10px)" });
       });
 
-      // Paused timeline; we drive it by scroll progress directly.
       const tl = gsap.timeline({ paused: true });
       acts.forEach((act, i) => {
         const slotStart = i / N;
@@ -36,8 +38,9 @@ export function Overlay() {
         const title = act.querySelector(".lab2-title");
         const body = act.querySelector(".lab2-body");
         const cta = act.querySelector(".lab2-cta");
+        const media = act.querySelector(".lab2-act-media");
 
-        // Enter (act + children stagger)
+        // Enter
         tl.to(act, {
           opacity: 1, y: 0, filter: "blur(0px)",
           duration: enterDur, ease: "power2.out",
@@ -52,18 +55,27 @@ export function Overlay() {
           tl.to(cta, { opacity: 1, y: 0, duration: enterDur * 0.85, ease: "power2.out" },
             slotStart + enterDur * 0.45);
         }
+        if (media) {
+          tl.to(media, {
+            opacity: 1, x: 0, filter: "blur(0px)",
+            duration: enterDur * 0.95, ease: "power3.out",
+          }, slotStart + enterDur * 0.35);
+        }
 
-        // Exit (all acts except last)
         if (i < N - 1) {
           tl.to(act, {
             opacity: 0, y: -32, filter: "blur(10px)",
             duration: exitDur, ease: "power2.in",
           }, slotEnd - exitDur);
+          if (media) {
+            tl.to(media, {
+              opacity: 0, x: -30, filter: "blur(8px)",
+              duration: exitDur, ease: "power2.in",
+            }, slotEnd - exitDur);
+          }
         }
       });
-
-      // Force exact duration of 1 so positions = scroll fractions.
-      // Add a real-target dummy tween that ends at time 1.
+      // Force exact duration = 1 so timeline positions match scroll fractions.
       const dummy = { v: 0 };
       tl.to(dummy, { v: 1, duration: 1, ease: "none" }, 0);
 
@@ -72,9 +84,7 @@ export function Overlay() {
         start: "top top",
         end: "bottom bottom",
         scrub: 0.4,
-        onUpdate: (self) => {
-          tl.progress(self.progress, false);
-        },
+        onUpdate: (self) => tl.progress(self.progress, false),
       });
     }, rootRef);
     return () => ctx.revert();
@@ -82,21 +92,29 @@ export function Overlay() {
 
   return (
     <div ref={rootRef} className="lab2-overlay">
-      {SECTIONS.map((s, i) => (
-        <div key={i} className="lab2-act" data-act={i}>
-          <span className="lab2-eyebrow">{s.eyebrow}</span>
-          <h2 className="lab2-title">{s.title}</h2>
-          <p className="lab2-body">{s.body}</p>
-          {i === SECTIONS.length - 1 && (
-            <div className="lab2-cta">
-              <a className="lab2-btn" href="mailto:kontakt@sagorski.it">
-                Risiko-Gespräch vereinbaren →
-              </a>
-              <a className="lab2-link" href="/">Zurück zur Hauptseite</a>
+      {SECTIONS.map((s, i) => {
+        const MediaComp = MEDIA[s.media];
+        return (
+          <div key={i} className="lab2-act" data-act={i}>
+            <div className="lab2-act-text">
+              <span className="lab2-eyebrow">{s.eyebrow}</span>
+              <h2 className="lab2-title">{s.title}</h2>
+              <p className="lab2-body">{s.body}</p>
+              {i === SECTIONS.length - 1 && (
+                <div className="lab2-cta">
+                  <a className="lab2-btn" href="mailto:kontakt@sagorski.it">
+                    Risiko-Gespräch vereinbaren →
+                  </a>
+                  <a className="lab2-link" href="/">Zurück zur Hauptseite</a>
+                </div>
+              )}
             </div>
-          )}
-        </div>
-      ))}
+            <div className="lab2-act-media">
+              <MediaComp />
+            </div>
+          </div>
+        );
+      })}
     </div>
   );
 }
