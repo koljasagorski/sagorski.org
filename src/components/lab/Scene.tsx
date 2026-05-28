@@ -547,7 +547,7 @@ function Stars() {
 }
 
 // ---- Top-level Scene ----
-export function Scene({ mobile }: { mobile: boolean }) {
+export function Scene({ mobile, enableBloom }: { mobile: boolean; enableBloom: boolean }) {
   const stateRef = useRef<SceneState>(initialSceneState());
   return (
     <Canvas
@@ -575,7 +575,7 @@ export function Scene({ mobile }: { mobile: boolean }) {
       <Shield stateRef={stateRef} />
       <TargetMarker stateRef={stateRef} />
 
-      {!mobile && (
+      {enableBloom && (
         <EffectComposer>
           <Bloom intensity={1.05} luminanceThreshold={0.35} luminanceSmoothing={0.45} mipmapBlur />
         </EffectComposer>

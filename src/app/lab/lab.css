@@ -45,13 +45,32 @@ html, body {
 }
 .lab2-header a:hover { opacity: 0.85; }
 
-.lab2-wrap { position: relative; }
-.lab2-sticky {
-  position: sticky;
+/* Fixed stage that always covers the viewport — avoids position:sticky +
+   WebGL canvas flicker on Safari and the "half-black at bottom" gap when
+   the sticky element releases. */
+.lab2-stage {
+  position: fixed;
   top: 0;
+  left: 0;
+  width: 100%;
   height: 100vh;
+  height: 100dvh;
   overflow: hidden;
+  z-index: 1;
+  pointer-events: none;
 }
+.lab2-stage > * { pointer-events: auto; }
+
+/* Scroll spacer: empty, just provides the scroll distance for the
+   ScrollTrigger timeline. Sits above the stage in z-order so we don't
+   accidentally cover clickable canvas regions, but pointer-events:none
+   lets clicks reach the overlay below. */
+.lab2-wrap {
+  position: relative;
+  z-index: 2;
+  pointer-events: none;
+}
+
 .lab2-canvas { position: absolute !important; inset: 0; z-index: 0; }
 .lab2-overlay {
   position: absolute;
