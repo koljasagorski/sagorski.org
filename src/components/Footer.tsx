@@ -29,6 +29,9 @@ export function Footer() {
           >
             TryHackMe
           </a>
+          <a href="/lab" className="link-underline">
+            Lab →
+          </a>
         </div>
       </div>
     </footer>
