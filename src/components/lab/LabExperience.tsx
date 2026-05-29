@@ -50,11 +50,18 @@ export function LabExperience() {
     const isMobileNow = window.innerWidth < 768;
     setEnableBloom(!safari && !isMobileNow);
 
-    const lenis = new Lenis({ duration: 1.1, smoothWheel: true });
-    lenis.on("scroll", ScrollTrigger.update);
-    const ticker = (time: number) => lenis.raf(time * 1000);
-    gsap.ticker.add(ticker);
-    gsap.ticker.lagSmoothing(0);
+    // Lenis smooth-scroll hijacks the wheel; under prefers-reduced-motion we
+    // keep native scrolling. ScrollTrigger drives the timeline either way.
+    let lenis: Lenis | null = null;
+    let ticker: ((time: number) => void) | null = null;
+    if (!mq.matches) {
+      lenis = new Lenis({ duration: 1.1, smoothWheel: true });
+      lenis.on("scroll", ScrollTrigger.update);
+      const t = (time: number) => lenis!.raf(time * 1000);
+      ticker = t;
+      gsap.ticker.add(t);
+      gsap.ticker.lagSmoothing(0);
+    }
 
     const st = ScrollTrigger.create({
       trigger: wrapRef.current!,
@@ -65,8 +72,8 @@ export function LabExperience() {
 
     return () => {
       st.kill();
-      gsap.ticker.remove(ticker);
-      lenis.destroy();
+      if (ticker) gsap.ticker.remove(ticker);
+      if (lenis) lenis.destroy();
       mq.removeEventListener("change", onMq);
       window.removeEventListener("resize", updateMobile);
     };

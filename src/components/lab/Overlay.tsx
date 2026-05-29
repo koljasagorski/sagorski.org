@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SECTIONS } from "@/lib/lab";
+import { mailto } from "@/lib/site";
 import { MEDIA } from "./Media";
 
 export function Overlay() {
@@ -106,11 +107,15 @@ export function Overlay() {
           <div key={i} className="lab2-act" data-act={i}>
             <div className="lab2-act-text">
               <span className="lab2-eyebrow">{s.eyebrow}</span>
-              <h2 className="lab2-title">{s.title}</h2>
+              {i === 0 ? (
+                <h1 className="lab2-title">{s.title}</h1>
+              ) : (
+                <h2 className="lab2-title">{s.title}</h2>
+              )}
               <p className="lab2-body">{s.body}</p>
               {i === SECTIONS.length - 1 && (
                 <div className="lab2-cta">
-                  <a className="lab2-btn" href="mailto:kontakt@sagorski.it">
+                  <a className="lab2-btn" href={mailto}>
                     Risiko-Gespräch vereinbaren →
                   </a>
                   <span className="lab2-cta-note">30 min · vertraulich · ohne Verpflichtung</span>
