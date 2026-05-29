@@ -77,8 +77,11 @@ export function LabExperience() {
   return (
     <div className="lab2">
       <header className="lab2-header">
-        <a href="/" aria-label="Zurück zur Hauptseite">← sagorski.it</a>
-        <span>LAB · CYBER SECURITY</span>
+        <a href="/" aria-label="Startseite" className="lab2-brand">
+          <span className="lab2-brand-name">Kolja Sagorski</span>
+          <span className="lab2-brand-role">· Offensive Security</span>
+        </a>
+        <a href="https://impressum.sagorski.it" rel="noopener">Impressum</a>
       </header>
 
       {/* Fixed stage holds the 3D scene and overlays — always covers the

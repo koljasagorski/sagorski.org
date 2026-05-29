@@ -31,19 +31,31 @@ html, body {
   align-items: center;
   padding: 1.5rem 2rem;
   z-index: 20;
-  font-size: 12px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
+  font-size: 13px;
   color: var(--lab-muted);
 }
-.lab2-header a {
-  color: var(--lab-fg);
+.lab2-brand {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
   text-decoration: none;
-  letter-spacing: 0.05em;
-  text-transform: none;
+  color: var(--lab-fg);
+}
+.lab2-brand-name {
+  font-weight: 500;
+  color: var(--lab-fg);
+}
+.lab2-brand-role {
+  color: var(--lab-muted);
+  font-weight: 400;
+}
+.lab2-header a {
+  color: var(--lab-muted);
+  text-decoration: none;
   font-size: 13px;
 }
-.lab2-header a:hover { opacity: 0.85; }
+.lab2-header .lab2-brand:hover .lab2-brand-name { color: var(--lab-accent); }
+.lab2-header a:hover { color: var(--lab-fg); }
 
 /* Fixed stage that always covers the viewport — avoids position:sticky +
    WebGL canvas flicker on Safari and the "half-black at bottom" gap when
@@ -154,6 +166,10 @@ html, body {
   font-size: 13px;
 }
 .lab2-link:hover { color: var(--lab-fg); }
+.lab2-cta-note {
+  color: var(--lab-muted);
+  font-size: 13px;
+}
 
 .lab2-hint {
   position: absolute;

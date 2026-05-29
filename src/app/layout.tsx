@@ -63,7 +63,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#fdfdfb",
+  themeColor: "#05080c",
 };
 
 const personId = `${site.url}/#person`;
