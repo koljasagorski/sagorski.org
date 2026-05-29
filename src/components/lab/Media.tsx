@@ -1,14 +1,27 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { mailto } from "@/lib/site";
+
+function prefersReduced(): boolean {
+  return (
+    typeof window !== "undefined" &&
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches
+  );
+}
 
 // ============ Akt 1 — Live connections counter + data stream ============
 export function Counter() {
   const ref = useRef<HTMLDivElement>(null);
   useEffect(() => {
     if (!ref.current) return;
-    let count = 0;
     const fmt = new Intl.NumberFormat("de-DE");
+    // Reduced motion: show a static representative figure, no ticking.
+    if (prefersReduced()) {
+      ref.current.textContent = fmt.format(4_500_000);
+      return;
+    }
+    let count = 0;
     let last = performance.now();
     let raf = 0;
     const tick = (now: number) => {
@@ -66,7 +79,7 @@ export function Terminal() {
     const passes = ["123456", "qwerty", "letmein", "admin", "password", "12345", "P@ssw0rd", "welcome1", "changeme"];
     const attacks = ["SSH brute", "HTTP auth", "FTP login", "RDP probe", "SMB scan", "SMTP relay", "DB probe"];
 
-    const addLine = () => {
+    const addLine = (animate: boolean) => {
       if (!ref.current) return;
       const t = new Date();
       const pad = (n: number, w = 2) => String(n).padStart(w, "0");
@@ -85,14 +98,25 @@ export function Terminal() {
         `<span class="t-cred">${u}:${p}</span> ` +
         `<span class="t-x">BLOCKED</span>`;
       ref.current.appendChild(line);
-      requestAnimationFrame(() => line.classList.add("is-shown"));
+      if (animate) {
+        requestAnimationFrame(() => line.classList.add("is-shown"));
+      } else {
+        line.style.transition = "none";
+        line.classList.add("is-shown");
+      }
       while (ref.current.children.length > 7) {
         ref.current.firstChild?.remove();
       }
     };
 
-    addLine();
-    const id = setInterval(addLine, 320);
+    // Reduced motion: render a few static lines once, no streaming.
+    if (prefersReduced()) {
+      for (let k = 0; k < 5; k++) addLine(false);
+      return;
+    }
+
+    addLine(true);
+    const id = setInterval(() => addLine(true), 320);
     return () => clearInterval(id);
   }, []);
 
@@ -112,6 +136,7 @@ export function Terminal() {
 export function Assets() {
   const [n, setN] = useState(2);
   useEffect(() => {
+    if (prefersReduced()) { setN(6); return; } // show all findings statically
     const id = setInterval(() => setN((v) => (v >= 6 ? v : v + 1)), 1100);
     return () => clearInterval(id);
   }, []);
@@ -152,6 +177,7 @@ export function Assets() {
 export function Process() {
   const [step, setStep] = useState(1);
   useEffect(() => {
+    if (prefersReduced()) { setStep(6); return; } // all phases done, static
     const id = setInterval(() => {
       setStep((s) => {
         if (s >= 6) return 1; // restart loop so the "is-active" highlight keeps moving
@@ -208,6 +234,7 @@ export function Trust() {
       setTime({ d, h, m });
     };
     tick();
+    if (prefersReduced()) return; // computed once, no live update
     const id = setInterval(tick, 30_000);
     return () => clearInterval(id);
   }, []);
@@ -231,7 +258,7 @@ export function Trust() {
           <span className="lab2-trust-lbl">zertifiziert · Bericht nach BSI-Modell</span>
         </div>
       </div>
-      <a className="lab2-slot" href="mailto:kontakt@sagorski.it">
+      <a className="lab2-slot" href={mailto}>
         <span className="lab2-slot-row">
           <span className="lab2-live"><i /></span>
           <span className="lab2-slot-label">Nächster freier Slot</span>

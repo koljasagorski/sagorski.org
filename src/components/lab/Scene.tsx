@@ -98,7 +98,8 @@ function Earth({ stateRef }: { stateRef: React.MutableRefObject<SceneState> }) {
   const angle = useRef(0);
   useFrame((_, dt) => {
     if (!meshRef.current) return;
-    angle.current += stateRef.current.globeSpinRate * dt;
+    // No auto-rotation under prefers-reduced-motion (scroll-driven camera stays).
+    if (!labStore.reduce) angle.current += stateRef.current.globeSpinRate * dt;
     meshRef.current.rotation.y = angle.current;
   });
   return (
@@ -263,7 +264,8 @@ function Arcs({ stateRef }: { stateRef: React.MutableRefObject<SceneState> }) {
 
   useFrame((_, dt) => {
     const cfg = stateRef.current;
-    const want = Math.max(0, Math.round(cfg.arcCount));
+    // No flying attack arcs under prefers-reduced-motion; existing ones fade out.
+    const want = labStore.reduce ? 0 : Math.max(0, Math.round(cfg.arcCount));
     let active = 0;
     for (let i = 0; i < slots.length; i++) if (slots[i].active) active++;
     for (let i = 0; i < slots.length && active < want; i++) {
@@ -474,7 +476,7 @@ function Exfil({ stateRef }: { stateRef: React.MutableRefObject<SceneState> }) {
   useEffect(() => () => { geom.dispose(); material.dispose(); }, [geom, material]);
 
   useFrame((_, dt) => {
-    const intensity = stateRef.current.exfilIntensity;
+    const intensity = labStore.reduce ? 0 : stateRef.current.exfilIntensity;
     material.uniforms.uOpacity.value = intensity;
     if (intensity < 0.01) {
       for (let i = 0; i < N; i++) sizes[i] = 0;
