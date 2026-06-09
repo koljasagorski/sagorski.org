@@ -1,0 +1,285 @@
+/* === sagorski.it homepage — terminal theme ===
+   Built as a hat-tip to blog.rice.is's Hugo "terminal" theme, but with
+   Sagorski coral as the accent (instead of Matrix green) and real
+   interactive content.
+*/
+
+:root {
+  --term-bg-chrome: #07080c;
+  --term-bg: #0d0e12;
+  --term-titlebar: #181a21;
+  --term-fg: #e6e6df;
+  --term-fg-dim: #9a9a92;
+  --term-fg-faint: #5a5a62;
+  --term-accent: #ff5a3a;        /* Sagorski coral */
+  --term-accent-soft: rgba(255, 90, 58, 0.12);
+  --term-ok: #5fc6a4;
+  --term-warn: #f1fa8c;
+  --term-err: #ff5555;
+  --term-mute: #6272a4;
+  --term-border: rgba(255, 255, 255, 0.08);
+  --term-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
+  --font-mono: ui-monospace, SFMono-Regular, "JetBrains Mono",
+               "IBM Plex Mono", Menlo, "DejaVu Sans Mono", monospace;
+}
+
+html, body {
+  background: var(--term-bg-chrome);
+  color: var(--term-fg);
+  overflow-x: clip;
+}
+
+.term {
+  min-height: 100vh;
+  min-height: 100dvh;
+  font-family: var(--font-mono);
+  font-size: 14px;
+  line-height: 1.55;
+  padding: 4vh 4vw 6vh;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  /* Subtle CRT scanlines */
+  background:
+    radial-gradient(ellipse at center, rgba(255, 90, 58, 0.04), transparent 60%),
+    repeating-linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.012) 0,
+      rgba(255, 255, 255, 0.012) 1px,
+      transparent 1px,
+      transparent 3px
+    ),
+    var(--term-bg-chrome);
+}
+
+/* === Window chrome === */
+.term-window {
+  width: 100%;
+  max-width: 980px;
+  background: var(--term-bg);
+  border: 1px solid var(--term-border);
+  border-radius: 10px;
+  box-shadow: var(--term-shadow), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  /* dedicated compositing layer; stops scanline repaints from costing us */
+  transform: translateZ(0);
+}
+
+.term-titlebar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  background: var(--term-titlebar);
+  border-bottom: 1px solid var(--term-border);
+  user-select: none;
+}
+.term-dots {
+  display: inline-flex;
+  gap: 7px;
+}
+.term-dots .dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.18);
+  display: block;
+}
+.term-dots .dot-close { background: #ff5f57; }
+.term-dots .dot-min   { background: #febc2e; }
+.term-dots .dot-max   { background: #28c840; }
+.term-title {
+  flex: 1;
+  text-align: center;
+  font-size: 12px;
+  color: var(--term-fg-dim);
+  letter-spacing: 0.04em;
+}
+.term-titlebar-meta {
+  font-size: 11px;
+  color: var(--term-fg-faint);
+}
+
+.term-tabs {
+  display: flex;
+  gap: 0;
+  background: var(--term-titlebar);
+  border-bottom: 1px solid var(--term-border);
+  padding: 0 12px;
+  font-size: 12px;
+}
+.term-tab {
+  display: inline-block;
+  padding: 7px 12px;
+  color: var(--term-fg-dim);
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+}
+.term-tab:hover { color: var(--term-fg); }
+.term-tab.is-active {
+  color: var(--term-fg);
+  border-bottom-color: var(--term-accent);
+}
+
+.term-body {
+  padding: 18px 22px 14px;
+  min-height: 50vh;
+}
+
+/* === Pre / output blocks === */
+.term-pre {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 14px;
+  line-height: 1.55;
+  white-space: pre-wrap;
+  word-break: break-word;
+  color: var(--term-fg);
+}
+.term-pre + .term-pre,
+.term-block + .term-block { margin-top: 0.95rem; }
+
+.term-banner {
+  margin: 0 0 1rem;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 1.05;
+  color: var(--term-accent);
+  white-space: pre;
+  overflow-x: auto;
+}
+
+.term-banner-sub {
+  display: block;
+  margin-top: 0.4rem;
+  font-size: 11px;
+  color: var(--term-fg-dim);
+  letter-spacing: 0.05em;
+}
+
+/* === Prompt + command === */
+.t-prompt { color: var(--term-accent); }
+.t-cmd    { color: var(--term-fg); }
+
+.term-input-line {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 0.4rem;
+}
+.term-input {
+  flex: 1;
+  background: transparent;
+  border: 0;
+  outline: 0;
+  color: var(--term-fg);
+  font: inherit;
+  caret-color: var(--term-accent);
+  caret-shape: block;
+  padding: 0;
+}
+.term-input::placeholder {
+  color: var(--term-fg-faint);
+}
+.term-input:focus { outline: 0; }
+
+.t-row-in  { color: var(--term-fg); }
+.t-row-out { color: var(--term-fg); }
+
+/* highlights inside outputs */
+.o-ok   { color: var(--term-ok); }
+.o-dim  { color: var(--term-fg-dim); }
+.o-hl   { color: var(--term-accent); }
+.o-warn { color: var(--term-warn); }
+.o-err  { color: var(--term-err); }
+.o-mute { color: var(--term-mute); }
+
+/* === Status line (bottom of window) === */
+.term-status {
+  display: flex;
+  gap: 0;
+  background: var(--term-titlebar);
+  border-top: 1px solid var(--term-border);
+  font-size: 11px;
+  color: var(--term-fg-dim);
+  letter-spacing: 0.04em;
+}
+.term-status .status-seg {
+  padding: 6px 12px;
+  border-right: 1px solid var(--term-border);
+}
+.term-status .status-seg:last-child {
+  border-right: none;
+  margin-left: auto;
+  color: var(--term-fg-faint);
+}
+.term-status .status-seg-accent { color: var(--term-accent); }
+.term-status kbd {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--term-border);
+  border-radius: 3px;
+  padding: 0 4px;
+  font-size: 10px;
+  color: var(--term-fg);
+  font-family: var(--font-mono);
+}
+
+/* === fade-in cascade on first paint === */
+@media (prefers-reduced-motion: no-preference) {
+  .term-block, .term-pre, .term-banner {
+    animation: t-in 280ms ease-out backwards;
+  }
+  .term-block:nth-of-type(1) { animation-delay: 0ms; }
+  .term-block:nth-of-type(2) { animation-delay: 100ms; }
+  .term-block:nth-of-type(3) { animation-delay: 180ms; }
+  .term-block:nth-of-type(4) { animation-delay: 240ms; }
+  .term-block:nth-of-type(5) { animation-delay: 300ms; }
+  .term-block:nth-of-type(6) { animation-delay: 360ms; }
+  .term-block:nth-of-type(7) { animation-delay: 420ms; }
+  .term-block:nth-of-type(8) { animation-delay: 480ms; }
+  .term-block:nth-of-type(9) { animation-delay: 540ms; }
+}
+@keyframes t-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Blinking caret block — used at the end of the live input */
+@media (prefers-reduced-motion: no-preference) {
+  .term-input:focus { animation: t-caret 1.05s steps(1) infinite; }
+}
+@keyframes t-caret {
+  50% { caret-color: transparent; }
+}
+
+/* === Mobile === */
+@media (max-width: 767px) {
+  .term { padding: 2vh 0.8rem 4vh; font-size: 13px; }
+  .term-window { border-radius: 8px; }
+  .term-body { padding: 14px 14px 10px; }
+  .term-banner { font-size: 10px; }
+  .term-pre { font-size: 13px; line-height: 1.5; }
+  .term-status .status-seg { padding: 5px 8px; }
+  .term-tab { padding: 6px 10px; font-size: 11px; }
+}
+
+/* Avoid horizontal scroll where the ASCII art is wide */
+.term-banner { overflow-x: auto; }
+
+/* Make sure scanlines/animations cooperate with reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .term {
+    background:
+      radial-gradient(ellipse at center, rgba(255, 90, 58, 0.03), transparent 60%),
+      var(--term-bg-chrome);
+  }
+  .term-input:focus { caret-color: var(--term-accent); animation: none; }
+}
+
+/* Skip link visibility on the dark theme */
+.term .skip-link:focus {
+  background: var(--term-accent);
+  color: #0a0a0a;
+}

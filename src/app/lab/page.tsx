@@ -2,14 +2,12 @@ import type { Metadata } from "next";
 import { LabExperience } from "@/components/lab/LabExperience";
 import "./lab.css";
 
-// The lab experience is now the homepage at "/". This route stays as a
-// backwards-compatible alias for anyone who bookmarked /lab.
+// /lab is now an opt-in demo (the homepage at "/" is the terminal page).
 export const metadata: Metadata = {
-  title: "Penetrationstests für den Mittelstand — Kolja Sagorski",
+  title: "Lab · 3D-Globus zur Bedrohungslage — Kolja Sagorski",
   description:
-    "Eine scrollbare Geschichte über die Angriffslage, der mittelständische Unternehmen ausgesetzt sind — und über die strukturierte Antwort darauf.",
-  robots: { index: false, follow: true },
-  alternates: { canonical: "https://sagorski.it/" },
+    "Eine scrollbare 3D-Geschichte zur Angriffslage mittelständischer Unternehmen — und zur strukturierten Antwort darauf.",
+  alternates: { canonical: "https://sagorski.it/lab" },
 };
 
 export const dynamic = "force-static";
